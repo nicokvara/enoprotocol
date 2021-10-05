@@ -1,0 +1,43 @@
+html,
+body {
+  font-family: "Space Mono", monospace !important;
+  background: rgba(255, 255, 255, 1);
+  color: rgba(40, 40, 40, 1);
+  font-size: 14px;
+}
+
+/* Custom Styles to edit the Editor  𐂂 */
+.ce-paragraph[data-placeholder]:empty::before {
+  color: gray !important;
+  opacity: 0.3 !important;
+  font-weight: 500 !important;
+}
+
+.codex-editor-overlay {
+  margin-bottom: 50px;
+}
+
+.codex-editor-overlay__container {
+  margin-bottom: 50px;
+}
+
+/*
+.ce-block__content {
+  margin-right: 40px !important;
+  margin-left: 40px !important;
+}
+
+.codex-editor__redactor { 
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+}
+
+.ce-toolbar__content {
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+}
+
+.ce-toolbar {
+  display: none;
+}
+*/
