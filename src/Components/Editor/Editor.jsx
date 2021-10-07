@@ -6,16 +6,20 @@ import axios from "axios";
 import { atom, useRecoilState } from "recoil";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
+import Error from "./Error";
+import TextareaAutosize from "react-textarea-autosize";
+import Header from "@editorjs/header";
+import SimpleImage from "@editorjs/simple-image";
 
 // Styles  𐂂
 const SRow = styled(Col)``;
-// Styles 𐂂
+
 // Title Input 𐂂
-const TInput = styled.textarea`
+const TInput = styled(TextareaAutosize)`
   // Title Input 𐂂
 
   display: block;
-  margin: 120px auto -24px auto;
+  margin: 120px auto 0px auto;
   min-width: 650px;
   max-width: 650px;
 
@@ -39,10 +43,11 @@ const TInput = styled.textarea`
   }
 `;
 // Description Input 𐂂
-const DInput = styled.textarea`
+const DInput = styled(TextareaAutosize)`
   // Description Input 𐂂
-
   display: block;
+
+  margin: 24px auto 0px auto;
 
   min-width: 650px;
   max-width: 650px;
@@ -52,8 +57,6 @@ const DInput = styled.textarea`
   resize: none;
 
   border-width: 0px;
-
-  margin: 0px auto 24px auto;
 
   &:focus {
     outline: none;
@@ -68,7 +71,7 @@ const DInput = styled.textarea`
 const PInput = styled.input`
   border-width: 0px;
 
-  margin: 0px auto 0px 6px;
+  margin: 24px auto 0px 6px;
 
   &:focus {
     outline: none;
@@ -78,6 +81,13 @@ const PInput = styled.input`
     color: gray !important;
     opacity: 0.3 !important;
   }
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+  }
+
+  -moz-appearance: textfield; /* Firefox */
 `;
 // Price Container 𐂂
 const SDiv = styled.div`
@@ -90,7 +100,23 @@ const SDiv = styled.div`
 // Spawns the Editor 𐂂
 const editor = new EditorJS({
   holder: "editorjs",
-  placeholder: "This is an empty text block. Fill it in...",
+  placeholder: "Write something...",
+
+  tools: {
+    image: SimpleImage,
+
+    header: {
+      class: Header,
+      shortcut: "CMD+SHIFT+H",
+      inlineToolbar: true,
+
+      config: {
+        placeholder: "Enter a header",
+        levels: [2, 3, 4],
+        defaultLevel: 2
+      }
+    }
+  }
 });
 
 editor.isReady
@@ -98,22 +124,22 @@ editor.isReady
     console.log("Editor.js is ready to work!");
     /** Do anything you need after editor initialization */
   })
-  .catch((reason) => {
+  .catch(reason => {
     console.log(`Editor.js initialization failed because of ${reason}`);
   });
 
 // Recoil Atoms 𐂂
 const isTypingState = atom({
   key: "isTypingState", // unique ID (with respect to other atoms/selectors)
-  default: false, // default value (aka initial value)
+  default: false // default value (aka initial value)
 });
 const FirePostRequest = atom({
   key: "FirePostRequest", // unique ID (with respect to other atoms/selectors)
-  default: false, // default value (aka initial value)
+  default: false // default value (aka initial value)
 });
 const SaveContentState = atom({
   key: "SaveContentState", // unique ID (with respect to other atoms/selectors)
-  default: false, // default value (aka initial value)
+  default: false // default value (aka initial value)
 });
 
 function CEditor() {
@@ -121,7 +147,7 @@ function CEditor() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm();
 
   // Request 𐂂
@@ -146,7 +172,7 @@ function CEditor() {
 
   // Save the editor's current state as a string 𐂂
   const SaveEditor = () => {
-    editor.save().then((outputData) => {
+    editor.save().then(outputData => {
       setEState(btoa(JSON.stringify(outputData.blocks)));
     });
   };
@@ -159,7 +185,7 @@ function CEditor() {
     });
   };
 
-  const SaveMeta = (data) => {
+  const SaveMeta = data => {
     setTitle(data.title);
     setDescription(data.description);
     setPrice(data.price);
@@ -167,7 +193,7 @@ function CEditor() {
 
   const MakeRequest = () => {
     axios
-      .post("https://api.cntn.xyz/add_article/", {
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/add_article/`, {
         api_key: Key,
         content: EState,
         metadata: [
@@ -175,11 +201,11 @@ function CEditor() {
             author: Author,
             title: Title,
             description: Description,
-            price: Price,
-          },
-        ],
+            price: Price
+          }
+        ]
       })
-      .then(function (response) {
+      .then(function(response) {
         if (response.status === 200) {
           toast.success(
             "Content was published. You are now being sent to the preview page.",
@@ -187,11 +213,11 @@ function CEditor() {
               duration: 1500,
               position: "top-right",
               style: {
-                margin: "-7px 0px 0px 0px",
-              },
+                margin: "-7px 0px 0px 0px"
+              }
             }
           );
-          new Promise((resolve) => {
+          new Promise(resolve => {
             setTimeout(() => {
               resolve(
                 (window.location.href =
@@ -206,7 +232,7 @@ function CEditor() {
         } else {
           toast.error("Couldn't post please try again.", {
             position: "bottom-right",
-            duration: 3000,
+            duration: 3000
           });
         }
       });
@@ -236,33 +262,59 @@ function CEditor() {
   const HideButton = () => {
     setIsTyping(true);
   };
+
   useEffect(() => {
-    new Promise((resolve) => {
+    new Promise(resolve => {
       setTimeout(() => {
         resolve(setIsTyping(false));
-      }, 2500);
+      }, 250);
     });
   }, [isTyping]);
+
   return (
     <SRow>
       <form ref={formRef} onSubmit={handleSubmit(SaveMeta)}>
         <TInput
           placeholder="Give this article a short title"
           autocomplete="off"
-          {...register("title")}
+          name="title"
+          {...register("title", {
+            required: true,
+            maxLength: 120
+          })}
         />
+        {errors.title && (
+          <Error msg="Description is required. Not longer than 120 Latin characters. No emojis." />
+        )}
         <DInput
           placeholder="Brifly describe your article. Description and the title are availible to readers before unlocking the article."
           autocomplete="off"
-          {...register("description")}
+          {...register("description", {
+            required: true,
+            maxLength: 250
+          })}
         />
+        {errors.description && (
+          <Error msg="Description is required. Not longer than 250 Latin characters. No emojis." />
+        )}
         <SDiv>
           <label>Consumption Price SOL </label>
           <PInput
             placeholder="0.0014"
             autocomplete="off"
-            {...register("price")}
+            {...register("price", {
+              required: true,
+              maxLength: 15,
+              min: 0.0
+            })}
+            type="number"
+            onWheel={e => e.target.blur()}
+            min="0"
+            formnovalidate
           />
+          {errors.price && (
+            <Error msg="Please add a price. Price should be a number, if you are feeling generous it can be 0." />
+          )}
         </SDiv>
       </form>
     </SRow>

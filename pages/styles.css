@@ -1,0 +1,17 @@
+.modal-content {
+  max-width: 363px;
+  max-height: 598px;
+}
+
+.fade.modal-backdrop {
+  background-color: white;
+  opacity: 100%;
+
+  filter: blur(0px);
+  position: fixed;
+
+  top: -30px;
+  right: 0px;
+  height: 120vh;
+  width: 100vw;
+}

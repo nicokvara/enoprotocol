@@ -5,7 +5,7 @@ import {
   WalletNotDetected,
   Loading,
   WalletNotConnected,
-  WalletConnected,
+  WalletConnected
 } from "../../Functions/Previewer/ButtonStates";
 import { GetPID } from "../../Functions/GetPID";
 import Router from "next/router";
@@ -42,9 +42,9 @@ function UnlockButton() {
   }, []);
 
   // Fires when button is clicked 𐂂
-  const ClickHandler = () => {
+  const ClickHandler = async () => {
     // Sets button to loading 𐂂
-    new Promise((resolve) => {
+    await new Promise(resolve => {
       setButtonState(Loading);
       setTimeout(() => {
         resolve(setButtonState(WalletNotConnected)); // Sets back to previous state if nothing happened 𐂂
@@ -54,7 +54,6 @@ function UnlockButton() {
     try {
       window.solana.connect();
       window.solana.on("connect", () => {
-        //   window.location.href = "https://cntn.xyz/viewer/" + GetPID();
         Router.push("/viewer/" + GetPID());
       });
     } catch (error) {

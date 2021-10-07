@@ -10,9 +10,12 @@ const EditorContainer = dynamic(
     ssr: false,
   }
 );
-const Alert = dynamic(() => import("../src/Components/Alert"), {
+const WalletModal = dynamic(() => import("../src/Components/Modal/Modal"), {
   ssr: false,
 });
+// const Alert = dynamic(() => import("../src/Components/Alert"), {
+//  ssr: false,
+//});
 
 // Styles  𐂂
 const EContainer = styled.div`
@@ -26,10 +29,11 @@ const EContainer = styled.div`
 function Editor() {
   return (
     <>
-      <title>Writing...</title>
+      <WalletModal />
+      <title>Editor</title>
       <Container>
         <Navbar />
-        <Alert />
+        {/*   <Alert /> */}
         <EditorContainer />
         <EContainer id="editorjs" />
       </Container>

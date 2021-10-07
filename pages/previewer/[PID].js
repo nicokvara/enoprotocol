@@ -7,11 +7,11 @@ import Meta from "../../src/Components/ArticleHeaders";
 
 // Disabled SSR 𐂂
 const Loader = dynamic(() => import("../../src/Components/Loader"), {
-  ssr: false,
+  ssr: false
 });
-
-// Custom Functions 𐂂
-// import GetPID from "../../src/Functions/GetPID";
+const WalletModal = dynamic(() => import("../../src/Components/Modal/Modal"), {
+  ssr: false
+});
 
 // Components 𐂂
 import InformationContainer from "../../src/Components/Previewer/InformationContainer";
@@ -22,11 +22,12 @@ function Previewer() {
 
   const router = useRouter();
   const { PID } = router.query;
-  console.log('DEBUG', PID, router);
-  
+
   // Get the post using the ID 𐂂
 
-  const { data, error } = useSWR("https://api.cntn.xyz/articles/" + PID);
+  const { data, error } = useSWR(
+    `${process.env.NEXT_PUBLIC_API_URL}/articles/"` + PID
+  );
 
   return (
     <>
@@ -34,10 +35,11 @@ function Previewer() {
       {!data && <Loader Title="Loading Previewer" Description="Please wait" />}
       {data && (
         <>
+          <WalletModal />
           <Meta
             title={data.metadata.article_title}
             description={data.metadata.article_description}
-            url={"https://api.cntn.xyz/articles/" + PID}
+            url={`${process.env.NEXT_PUBLIC_API_URL}/articles/` + PID}
           />
           <Container>
             <Row>

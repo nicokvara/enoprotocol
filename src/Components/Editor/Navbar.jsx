@@ -19,21 +19,21 @@ const SButton = styled(Button)`
 // Animation 𐂂
 const variants = {
   open: { opacity: 1, transition: { duration: 1.5 } },
-  closed: { opacity: 0, transition: { duration: 1.5 } },
+  closed: { opacity: 0, transition: { duration: 1.5 } }
 };
 
 // Recoil Atoms 𐂂
 const isTypingState = atom({
   key: "isTypingState", // unique ID (with respect to other atoms/selectors)
-  default: false, // default value (aka initial value)
+  default: false // default value (aka initial value)
 });
 const FirePostRequest = atom({
   key: "FirePostRequest", // unique ID (with respect to other atoms/selectors)
-  default: false, // default value (aka initial value)
+  default: false // default value (aka initial value)
 });
 const SaveContentState = atom({
   key: "SaveContentState", // unique ID (with respect to other atoms/selectors)
-  default: false, // default value (aka initial value)
+  default: false // default value (aka initial value)
 });
 
 // CNvabat - Custom Navbar 𐂂
@@ -48,7 +48,7 @@ function CNavbar() {
         <motion.div animate={isTyping ? "closed" : "open"} variants={variants}>
           <Navbar bg="white">
             <Container>
-              <Navbar.Brand href="https://cntn.xyz/">
+              <Navbar.Brand href={process.env.NEXT_PUBLIC_BASE_URL}>
                 <Image
                   alt="content.xyz Logo"
                   src={Logo}

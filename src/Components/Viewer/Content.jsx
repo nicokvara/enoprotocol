@@ -41,7 +41,9 @@ const TitleContainer = styled.div`
 
 function Content() {
   // Get post using post ID 𐂂
-  const { data, error } = useSWR("https://api.cntn.xyz/articles/" + GetPID());
+  const { data, error } = useSWR(
+    `${process.env.NEXT_PUBLIC_API_URL}/articles/` + GetPID()
+  );
 
   if (error) return <div>failed to load</div>; // Page loading state 𐂂
   if (!data) return <div>loading...</div>; // Page error state 𐂂
@@ -63,7 +65,7 @@ function Content() {
           Date={Date(data.article_created)}
         />
 
-        {JSON.parse(data.content).map((Content) => {
+        {JSON.parse(data.content).map(Content => {
           switch (Content.type) {
             case "header":
               return (
@@ -83,7 +85,7 @@ function Content() {
                   <Paragraph
                     key={Content.id}
                     dangerouslySetInnerHTML={{
-                      __html: Content.data.text,
+                      __html: Content.data.text
                     }}
                   />
                   <br />
@@ -94,7 +96,7 @@ function Content() {
               return (
                 <Paragraph>
                   <ul>
-                    {Content.data.items.map((ListItem) => {
+                    {Content.data.items.map(ListItem => {
                       return <li>{ListItem}</li>;
                     })}
                   </ul>

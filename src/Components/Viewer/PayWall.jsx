@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 
 // Disabled SSR 𐂂
 const Loader = dynamic(() => import("../../../src/Components/Loader.jsx"), {
-  ssr: false,
+  ssr: false
 });
 
 function PayWall() {
@@ -17,7 +17,9 @@ function PayWall() {
   const router = useRouter();
   const { PID } = router.query;
 
-  const { data, error } = useSWR("https://api.cntn.xyz/articles/" + PID);
+  const { data, error } = useSWR(
+    `${process.env.NEXT_PUBLIC_API_URL}/articles/` + PID
+  );
 
   // Define who's paying 𐂂
   useEffect(() => {
@@ -38,7 +40,7 @@ function PayWall() {
       Pay(
         data.metadata.article_author_address,
         data.metadata.article_price / 0.000000001
-      ).then((response) => setPaid(response));
+      ).then(response => setPaid(response));
     }
     //  }
   }, [Payer, data]);

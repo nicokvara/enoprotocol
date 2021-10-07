@@ -45,7 +45,7 @@ function Homepage() {
                 transition={{
                   duration: 1,
                   type: "spring",
-                  ease: "circInOut",
+                  ease: "circInOut"
                 }}
                 exit={{ opacity: 0 }}
               >
@@ -62,23 +62,22 @@ function Homepage() {
                 transition={{
                   duration: 1,
                   type: "spring",
-                  ease: "circInOut",
+                  ease: "circInOut"
                 }}
                 exit={{ opacity: 0 }}
               >
                 <SH1>Anonymously create, own and monetize your content.</SH1>
                 <p>
-                  Cntn.xyz is a censorship resistant interface for creating and
+                  Eno.xyz is a censorship resistant interface for creating and
                   interacting with protected content powered by the distributed
-                  ledger and cryptographic technologies. Cntn.xyz doesn't
-                  collect any data from users allowing them to stay fully
-                  anonymous if they so desire. Currently only textual content is
-                  supported.
+                  ledger and cryptographic technologies. Eno.xyz doesn't collect
+                  any data from users allowing them to stay fully anonymous if
+                  they so desire. Currently only textual content is supported.
                 </p>
                 <SButton
                   variant="outline-dark"
                   onClick={() => {
-                    window.location.href = "https://cntn.xyz/new";
+                    window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/new`;
                   }}
                 >
                   Create
