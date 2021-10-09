@@ -35,19 +35,12 @@ function PayWall() {
 
   // Pay function 𐂂
   useEffect(() => {
-    //  if (typeof window === "undefined") {
     if (Payer !== null && data !== undefined) {
       Pay(
         data.metadata.article_author_address,
         data.metadata.article_price / 0.000000001
       ).then(response => setPaid(response));
     }
-    //  }
-  }, [Payer, data]);
-
-  useEffect(() => {
-    console.log(Payer);
-    console.log(data);
   }, [Payer, data]);
 
   if (error) return <div>failed to load</div>; // Page loading state 𐂂

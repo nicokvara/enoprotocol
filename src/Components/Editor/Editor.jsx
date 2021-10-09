@@ -208,7 +208,7 @@ function CEditor() {
       .then(function(response) {
         if (response.status === 200) {
           toast.success(
-            "Content was published. You are now being sent to the preview page.",
+            "Content was published. The token will show up in your wallet briefly.",
             {
               duration: 1500,
               position: "top-right",
