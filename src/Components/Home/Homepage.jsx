@@ -66,7 +66,7 @@ function Homepage() {
                 }}
                 exit={{ opacity: 0 }}
               >
-                <SH1>Anonymously create, own and monetize your content.</SH1>
+                <SH1>Create, own and monetize your content.</SH1>
                 <p>
                   Eno.xyz is a censorship resistant interface for creating and
                   interacting with protected content powered by the distributed

@@ -310,7 +310,7 @@ function CEditor() {
             type="number"
             onWheel={e => e.target.blur()}
             min="0"
-            formnovalidate
+            step="any"
           />
           {errors.price && (
             <Error msg="Please add a price. Price should be a number, if you are feeling generous it can be 0." />
