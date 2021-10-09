@@ -59,14 +59,18 @@ function Previewer() {
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/check/`, {
         article: PID,
-        author: window.solana.publicKey.toString()
+        author: window?.solana.publicKey.toString()
       })
       .then(res => {
         setIsAuthor(res.data.has_access);
       });
   };
 
-  useEffect(() => checkAuthority(), [window.solana]);
+  useEffect(() => {
+    if (window?.solana) {
+      checkAuthority();
+    }
+  }, [window?.solana]);
 
   const handleRedirect = () => {};
 
