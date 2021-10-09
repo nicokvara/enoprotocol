@@ -26,7 +26,7 @@ function Previewer() {
   // Get the post using the ID 𐂂
 
   const { data, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/articles/"` + PID
+    `${process.env.NEXT_PUBLIC_API_URL}/articles/` + PID
   );
 
   return (
