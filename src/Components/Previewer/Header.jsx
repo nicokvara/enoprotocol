@@ -30,7 +30,6 @@ const IsAuthorRequest = atom({
 });
 
 export const Header = () => {
-  const [InterfaceFee, setInterfaceFee] = useState(0);
   const [IsAuthor, setIsAuthor] = useRecoilState(IsAuthorRequest);
 
   const router = useRouter();
