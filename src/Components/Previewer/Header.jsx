@@ -29,7 +29,7 @@ const IsAuthorRequest = atom({
   default: false // default value (aka initial value)
 });
 
-const Header = () => {
+export const Header = () => {
   const [InterfaceFee, setInterfaceFee] = useState(0);
   const [IsAuthor, setIsAuthor] = useRecoilState(IsAuthorRequest);
 
@@ -69,3 +69,5 @@ const Header = () => {
     </Row>
   ) : null;
 };
+
+export default Header;
