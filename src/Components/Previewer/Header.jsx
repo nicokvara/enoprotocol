@@ -55,7 +55,7 @@ const Header = () => {
 
   const handleRedirect = () => {};
 
-  return true ? (
+  return IsAuthor ? (
     <Row>
       <Col>
         <Navbar bg="white">
