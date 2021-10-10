@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { Row, Container, Col, Navbar, Button } from "react-bootstrap";
+import React, { useState } from "react";
+import { Row, Container } from "react-bootstrap";
 import useSWR from "swr";
-import styled from "styled-components";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
-import { atom, useRecoilState } from "recoil";
 
 // Components 𐂂
 import InformationContainer from "../../src/Components/Previewer/InformationContainer";
@@ -18,34 +16,12 @@ const Loader = dynamic(() => import("../../src/Components/Loader"), {
 const WalletModal = dynamic(() => import("../../src/Components/Modal/Modal"), {
   ssr: false
 });
-
-// Styles 𐂂
-const SButton = styled(Button)`
-  max-height: 42px;
-  font-size: 14px;
-  color: rgb(102, 187, 106);
-  border-color: rgb(102, 187, 106);
-  margin: 0 0 0 auto;
-
-  :hover {
-    bacground: rgb(102, 187, 106);
-    bacground-color: rgb(102, 187, 106);
-    color: #ffffff;
-  }
-
-  :focus {
-    border-width: 0;
-  }
-`;
-
-const IsAuthorRequest = atom({
-  key: "IsAuthorRequest", // unique ID (with respect to other atoms/selectors)
-  default: false // default value (aka initial value)
+const Header = dynamic(() => import("../../src/Components/Previewer/Header"), {
+  ssr: false
 });
 
 function Previewer() {
   const [InterfaceFee, setInterfaceFee] = useState(0);
-  const [IsAuthor, setIsAuthor] = useRecoilState(IsAuthorRequest);
 
   const router = useRouter();
   const { PID } = router.query;
@@ -54,25 +30,6 @@ function Previewer() {
   const { data, error } = useSWR(
     `${process.env.NEXT_PUBLIC_API_URL}/articles/` + PID
   );
-
-  const checkAuthority = () => {
-    axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/check/`, {
-        article: PID,
-        author: window?.solana.publicKey.toString()
-      })
-      .then(res => {
-        setIsAuthor(res.data.has_access);
-      });
-  };
-
-  useEffect(() => {
-    if (window?.solana) {
-      checkAuthority();
-    }
-  }, [window?.solana]);
-
-  const handleRedirect = () => {};
 
   return (
     <>
@@ -87,19 +44,7 @@ function Previewer() {
             url={`${process.env.NEXT_PUBLIC_API_URL}/articles/` + PID}
           />
           <Container>
-            {IsAuthor && (
-              <Row>
-                <Col>
-                  <Navbar bg="white">
-                    <Container>
-                      <SButton onClick={handleRedirect} variant="outline-dark">
-                        Open
-                      </SButton>
-                    </Container>
-                  </Navbar>
-                </Col>
-              </Row>
-            )}
+            <Header />
             <Row>
               <CardContainer
                 Title={data.metadata.article_title}
