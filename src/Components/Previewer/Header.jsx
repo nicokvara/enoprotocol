@@ -14,8 +14,9 @@ const SButton = styled(Button)`
   margin: 0 0 0 auto;
 
   :hover {
-    bacground: rgb(102, 187, 106);
-    bacground-color: rgb(102, 187, 106);
+    background: rgb(102, 187, 106);
+    background-color: rgb(102, 187, 106);
+    border-color: rgb(102, 187, 106);
     color: #ffffff;
   }
 
@@ -29,7 +30,7 @@ const IsAuthorRequest = atom({
   default: false // default value (aka initial value)
 });
 
-export const Header = () => {
+const Header = () => {
   const [IsAuthor, setIsAuthor] = useRecoilState(IsAuthorRequest);
 
   const router = useRouter();
@@ -39,7 +40,7 @@ export const Header = () => {
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/check/`, {
         article: PID,
-        author: window?.solana.publicKey.toString()
+        author: window?.solana?.publicKey.toString()
       })
       .then(res => {
         setIsAuthor(res.data.has_access);
@@ -47,14 +48,14 @@ export const Header = () => {
   };
 
   useEffect(() => {
-    if (window?.solana) {
+    if (window?.solana?.publicKey) {
       checkAuthority();
     }
   }, [window?.solana]);
 
   const handleRedirect = () => {};
 
-  return IsAuthor ? (
+  return true ? (
     <Row>
       <Col>
         <Navbar bg="white">
