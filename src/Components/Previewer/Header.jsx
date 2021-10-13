@@ -55,7 +55,9 @@ const Header = () => {
   console.log(
     "render",
     window?.solana?.publicKey?.toString(),
-    window?.solana?.publicKey
+    window?.solana?.publicKey,
+    IsAuthor,
+    PID
   );
 
   const handleRedirect = () => router.push("/viewer/" + PID);
