@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { Row, Container, Col, Navbar, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { useRouter } from "next/router";
@@ -36,7 +36,7 @@ const Header = () => {
   const router = useRouter();
   const { PID } = router.query;
 
-  const checkAuthority = () => {
+  const checkAuthority = useCallback(() => {
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/validate_author/`, {
         article: PID,
@@ -45,10 +45,10 @@ const Header = () => {
       .then(res => {
         setIsAuthor(res.data.success);
       });
-  };
+  }, [window?.solana?.publicKey]);
 
   useEffect(() => {
-    if (window?.solana) {
+    if (window?.solana?.publicKey) {
       checkAuthority();
     }
   }, [window?.solana, window?.solana?.publicKey]);
