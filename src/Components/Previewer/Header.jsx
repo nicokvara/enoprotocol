@@ -52,6 +52,11 @@ const Header = () => {
       checkAuthority();
     }
   }, [window?.solana, window?.solana?.publicKey]);
+  console.log(
+    "render",
+    window?.solana?.publicKey?.toString(),
+    window?.solana?.publicKey
+  );
 
   const handleRedirect = () => router.push("/viewer/" + PID);
 
