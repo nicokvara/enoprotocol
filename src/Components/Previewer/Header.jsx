@@ -48,11 +48,11 @@ const Header = () => {
   };
 
   useEffect(() => {
-    if (window?.solana?.publicKey) {
-      checkAuthority();
-    }
-  }, [window?.solana, router, PID]);
-  console.log("render", window, IsAuthor);
+    // if (window?.solana?.publicKey) {
+    checkAuthority();
+    // }
+  }, []);
+  console.log("render", window.solana, IsAuthor);
 
   const handleRedirect = () => router.push("/viewer/" + PID);
 
