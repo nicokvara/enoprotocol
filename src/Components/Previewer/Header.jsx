@@ -36,7 +36,7 @@ const Header = () => {
   const router = useRouter();
   const { PID } = router.query;
 
-  const checkAuthority = useCallback(() => {
+  const checkAuthority = () => {
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/validate_author/`, {
         article: PID,
@@ -45,7 +45,7 @@ const Header = () => {
       .then(res => {
         setIsAuthor(res.data.success);
       });
-  }, [window?.solana?.publicKey]);
+  };
 
   useEffect(() => {
     if (window?.solana?.publicKey) {
