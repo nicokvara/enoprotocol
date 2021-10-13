@@ -24,15 +24,17 @@ function Viewer() {
     <>
       {!data && <Loader Title="Loading Viewer" Description="Please wait" />}
       {data && (
-        <Meta
-          title={data.metadata.article_title}
-          description={data.metadata.article_description}
-          url={`${process.env.NEXT_PUBLIC_API_URL}/articles/` + PID}
-        />
-        <Container>
-          <Navbar />
-          <PayWall />
-        </Container>
+        <>
+          <Meta
+            title={data.metadata.article_title}
+            description={data.metadata.article_description}
+            url={`${process.env.NEXT_PUBLIC_API_URL}/articles/` + PID}
+          />
+          <Container>
+            <Navbar />
+            <PayWall />
+          </Container>
+        </>
       )}
     </>
   );
