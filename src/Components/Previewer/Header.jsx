@@ -43,15 +43,20 @@ const Header = () => {
         author: window?.solana?.publicKey.toString()
       })
       .then(res => {
+        console.log("response", res);
         setIsAuthor(res.data.has_access);
       });
   };
 
   useEffect(() => {
-    if (window?.solana?.publicKey) {
+    console.log("cmdidm", window?.solana);
+
+    if (window?.solana) {
       checkAuthority();
     }
   }, [window?.solana]);
+
+  console.log("render", IsAuthor);
 
   const handleRedirect = () => router.push("/viewer/" + PID);
 
