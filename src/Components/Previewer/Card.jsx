@@ -61,9 +61,11 @@ const SH1 = styled.h1`
   font-size: 18px;
   margin: 16px 0px 16px 0px;
   font-weight: 700;
+  word-break: break-all;
 `;
 const SP = styled.p`
   font-size: 14px;
+  word-break: break-all;
 `;
 
 function Card(props) {
@@ -71,7 +73,7 @@ function Card(props) {
     <SContainer>
       <SCard>
         <SDiv>
-          <Image src={Logo} alt="content.xyz Logo" width={31} height={31} />
+          <Image src={Logo} alt="content.xyz Logo" width={80} height={31} />
 
           <SH1>{props.Title}</SH1>
 

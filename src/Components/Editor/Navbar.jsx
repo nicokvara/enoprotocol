@@ -52,7 +52,7 @@ function CNavbar() {
                 <Image
                   alt="content.xyz Logo"
                   src={Logo}
-                  width={31}
+                  width={80}
                   height={31}
                 />
               </Navbar.Brand>

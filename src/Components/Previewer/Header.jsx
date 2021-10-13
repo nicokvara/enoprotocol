@@ -38,7 +38,7 @@ const Header = () => {
 
   const checkAuthority = () => {
     axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/check/`, {
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/validate_author/`, {
         article: PID,
         author: window?.solana?.publicKey.toString()
       })
@@ -53,7 +53,7 @@ const Header = () => {
     }
   }, [window?.solana]);
 
-  const handleRedirect = () => {};
+  const handleRedirect = () => router.push("/viewer/" + PID);
 
   return IsAuthor ? (
     <Row>

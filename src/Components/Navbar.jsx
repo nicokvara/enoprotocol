@@ -11,7 +11,7 @@ function CNavbar() {
         <Navbar bg="white">
           <Container>
             <Navbar.Brand href={process.env.NEXT_PUBLIC_BASE_URL}>
-              <Image alt="content.xyz Logo" src={Logo} width={31} height={31} />
+              <Image alt="content.xyz Logo" src={Logo} width={80} height={31} />
             </Navbar.Brand>
           </Container>
         </Navbar>

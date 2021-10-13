@@ -26,7 +26,7 @@ const HeaderContainer = styled.div`
 const Paragraph = styled.div`
   line-height: 190%;
   font-size: 14px;
-
+  word-break: break-all;
   user-select: none; // supported by Chrome and Opera
   -webkit-user-select: none; // Safari
   -khtml-user-select: none; // Konqueror HTML
