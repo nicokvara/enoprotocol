@@ -40,23 +40,18 @@ const Header = () => {
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/validate_author/`, {
         article: PID,
-        author: window?.solana?.publicKey.toString()
+        author: window?.solana?.publicKey?.toString()
       })
       .then(res => {
-        console.log("response", res);
-        setIsAuthor(res.data.has_access);
+        setIsAuthor(res.data.success);
       });
   };
 
   useEffect(() => {
-    console.log("cmdidm", window?.solana);
-
     if (window?.solana) {
       checkAuthority();
     }
-  }, [window?.solana]);
-
-  console.log("render", IsAuthor);
+  }, [window?.solana, window?.solana?.publicKey]);
 
   const handleRedirect = () => router.push("/viewer/" + PID);
 
