@@ -61,11 +61,11 @@ const SH1 = styled.h1`
   font-size: 18px;
   margin: 16px 0px 16px 0px;
   font-weight: 700;
-  word-break: break-all;
+  overflow-wrap: break-word;
 `;
 const SP = styled.p`
   font-size: 14px;
-  word-break: break-all;
+  overflow-wrap: break-word;
 `;
 
 function Card(props) {
