@@ -51,12 +51,13 @@ const Header = () => {
     if (window?.solana?.publicKey) {
       checkAuthority();
     }
-  }, [window?.solana, window?.solana?.publicKey]);
+  }, [window?.solana, router, PID]);
   console.log(
     "render",
     window?.solana?.publicKey?.toString(),
     window?.solana?.publicKey,
     IsAuthor,
+    router,
     PID
   );
 
