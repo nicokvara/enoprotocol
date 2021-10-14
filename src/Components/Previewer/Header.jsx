@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import { atom, useRecoilState } from "recoil";
 import axios from "axios";
+import Image from "next/image";
 
 // Styles 𐂂
 const SButton = styled(Button)`
@@ -58,8 +59,11 @@ const Header = () => {
       <Col>
         <Navbar bg="white">
           <Container>
+            <Navbar.Brand href={process.env.NEXT_PUBLIC_BASE_URL}>
+              <Image alt="eno.xyz Logo" src={Logo} width={80} height={31} />
+            </Navbar.Brand>
             <SButton onClick={handleRedirect} variant="outline-dark">
-              Open
+              Open the article
             </SButton>
           </Container>
         </Navbar>

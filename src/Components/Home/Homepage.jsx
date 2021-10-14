@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Row, Container, Col, Button } from "react-bootstrap";
 import Logo from "../../../public/Assets/Logo.svg";
+import DiscordLogo from "../../../public/Assets/discordlogo.png";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -31,6 +32,10 @@ const SButton = styled(Button)`
   padding: 6px 12px 6px 12px;
   margin: 24px 0px 0px 0px;
 `;
+const SLink = styled.a`
+  display: flex;
+  justify-content: center;
+`;
 
 function Homepage() {
   return (
@@ -49,12 +54,7 @@ function Homepage() {
                 }}
                 exit={{ opacity: 0 }}
               >
-                <Image
-                  alt="content.xyz Logo"
-                  src={Logo}
-                  width={80}
-                  height={31}
-                />
+                <Image alt="eno.xyz Logo" src={Logo} width={80} height={31} />
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, y: +30 }}
@@ -86,6 +86,9 @@ function Homepage() {
             </SDiv>
           </SCol>
         </Row>
+        <SLink href="https://discord.com/invite/8c89sHrW" target="_blank">
+          <Image alt="eno.xyz Logo" src={DiscordLogo} width={26} height={30} />
+        </SLink>
       </Container>
     </>
   );
