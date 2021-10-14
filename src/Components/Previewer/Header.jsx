@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { atom, useRecoilState } from "recoil";
 import axios from "axios";
 import Image from "next/image";
+import Logo from "../../../public/Assets/Logo.svg";
 
 // Styles 𐂂
 const SButton = styled(Button)`
