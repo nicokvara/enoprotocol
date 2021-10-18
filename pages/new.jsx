@@ -36,7 +36,6 @@ function Editor() {
       <WalletModal />
       <Container>
         <Navbar />
-        {/*   <Alert /> */}
         <EditorContainer />
         <EContainer id="editorjs" />
       </Container>
