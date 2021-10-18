@@ -3,15 +3,16 @@ import Navbar from "../src/Components/Editor/Navbar";
 import { Container } from "react-bootstrap";
 import dynamic from "next/dynamic";
 import styled from "styled-components";
+import Head from "next/head";
 
 const EditorContainer = dynamic(
   () => import("../src/Components/Editor/Editor"),
   {
-    ssr: false,
+    ssr: false
   }
 );
 const WalletModal = dynamic(() => import("../src/Components/Modal/Modal"), {
-  ssr: false,
+  ssr: false
 });
 // const Alert = dynamic(() => import("../src/Components/Alert"), {
 //  ssr: false,
@@ -29,8 +30,10 @@ const EContainer = styled.div`
 function Editor() {
   return (
     <>
+      <Head>
+        <title>Editor</title>
+      </Head>
       <WalletModal />
-      <title>Editor</title>
       <Container>
         <Navbar />
         {/*   <Alert /> */}

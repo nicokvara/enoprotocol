@@ -86,7 +86,7 @@ function Homepage() {
             </SDiv>
           </SCol>
         </Row>
-        <SLink href="https://discord.com/invite/8c89sHrW" target="_blank">
+        <SLink href="https://discord.gg/kk55Z8rmy3" target="_blank">
           <Image alt="eno.xyz Logo" src={DiscordLogo} width={26} height={30} />
         </SLink>
       </Container>
