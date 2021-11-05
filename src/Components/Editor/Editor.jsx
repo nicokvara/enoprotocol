@@ -173,7 +173,9 @@ function CEditor() {
   // Save the editor's current state as a string 𐂂
   const SaveEditor = () => {
     editor.save().then(outputData => {
-      setEState(btoa(JSON.stringify(outputData.blocks)));
+      setEState(
+        btoa(unescape(encodeURIComponent(JSON.stringify(outputData.blocks))))
+      );
     });
   };
 
