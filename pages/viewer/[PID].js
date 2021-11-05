@@ -29,7 +29,7 @@ function Viewer() {
           <Meta
             title={data.metadata.article_title}
             description={data.metadata.article_description}
-            url={`${process.env.NEXT_PUBLIC_API_URL}/articles/` + PID}
+            url={`${process.env.NEXT_PUBLIC_BASE_URL}/viewer/` + PID}
           />
           <Container>
             <Navbar />
