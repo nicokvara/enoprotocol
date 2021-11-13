@@ -10,6 +10,7 @@ import Error from "./Error";
 import TextareaAutosize from "react-textarea-autosize";
 import Header from "@editorjs/header";
 import SimpleImage from "@editorjs/simple-image";
+import Pay from "../../Functions/Pay";
 
 // Styles  𐂂
 const SRow = styled(Col)``;
@@ -142,7 +143,7 @@ const SaveContentState = atom({
   default: false // default value (aka initial value)
 });
 
-function CEditor() {
+function CEditor({ fee }) {
   // Useform boilerplate 𐂂
   const {
     register,
@@ -255,7 +256,11 @@ function CEditor() {
       DefineAuthor();
     }
     if (Fire === true && Author !== null) {
-      MakeRequest();
+      Pay(window.solana.publicKey, 0.00000000001).then(res => {
+        if (res) {
+          MakeRequest();
+        }
+      });
       setFire(false);
     }
   }, [Fire, Author]);

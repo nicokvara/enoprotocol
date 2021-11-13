@@ -54,7 +54,7 @@ function Editor() {
           {`Please note, the Solana minting fee for this article might SOL ${fee}.
           The eno.xyz interface fee is SOL 0.`}
         </FeeContainer>
-        <EditorContainer />
+        <EditorContainer fee={fee} />
         <EContainer id="editorjs" />
       </Container>
     </>
