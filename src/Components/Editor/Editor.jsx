@@ -11,6 +11,12 @@ import TextareaAutosize from "react-textarea-autosize";
 import Header from "@editorjs/header";
 import SimpleImage from "@editorjs/simple-image";
 import Pay from "../../Functions/Pay";
+import dynamic from "next/dynamic";
+
+// Disabled SSR 𐂂
+const Loader = dynamic(() => import("../../../src/Components/Loader.jsx"), {
+  ssr: false
+});
 
 // Styles  𐂂
 const SRow = styled(Col)``;
@@ -167,6 +173,7 @@ function CEditor({ fee }) {
   const [Fire, setFire] = useRecoilState(FirePostRequest);
   const [SaveContent, setSaveContent] = useRecoilState(SaveContentState);
   const [isTyping, setIsTyping] = useRecoilState(isTypingState);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Refs 𐂂
   const formRef = useRef();
@@ -256,7 +263,9 @@ function CEditor({ fee }) {
       DefineAuthor();
     }
     if (Fire === true && Author !== null) {
+      setIsLoading(true);
       Pay(window.solana.publicKey, 0.00000000001).then(res => {
+        setIsLoading(false);
         if (res) {
           MakeRequest();
         }
@@ -277,6 +286,8 @@ function CEditor({ fee }) {
       }, 250);
     });
   }, [isTyping]);
+
+  if (isLoading) return <Loader Title="Loading..." Description="Please wait" />;
 
   return (
     <SRow>
