@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import axios from "axios";
 import Navbar from "../src/Components/Editor/Navbar";
 import { Container } from "react-bootstrap";
 import dynamic from "next/dynamic";
@@ -28,6 +29,14 @@ const EContainer = styled.div`
 `;
 
 function Editor() {
+  const [fee, setFee] = useState(0);
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/mainnet_mint_fee`)
+      .then(res => setFee(res.mainnet_mint_fee));
+  }, []);
+
   return (
     <>
       <Head>
@@ -36,6 +45,10 @@ function Editor() {
       <WalletModal />
       <Container>
         <Navbar />
+        <p>
+          Please note, the Solana minting fee for this article might SOL ${fee}.
+          The eno.xyz interface fee is SOL 0.
+        </p>
         <EditorContainer />
         <EContainer id="editorjs" />
       </Container>
