@@ -181,9 +181,12 @@ function CEditor({ fee }) {
   // Save the editor's current state as a string 𐂂
   const SaveEditor = () => {
     editor.save().then(outputData => {
-      setEState(
-        btoa(unescape(encodeURIComponent(JSON.stringify(outputData.blocks))))
-      );
+      setEState(btoa(JSON.stringify(outputData.blocks)));
+
+      // TODO: escape all characters
+      // setEState(
+      //   btoa(unescape(encodeURIComponent(JSON.stringify(outputData.blocks))))
+      // );
     });
   };
 
@@ -262,9 +265,9 @@ function CEditor({ fee }) {
     if (Fire === true && Author === null) {
       DefineAuthor();
     }
-    if (Fire === true && Author !== null) {
+    if (Fire === true && Author !== null && fee) {
       setIsLoading(true);
-      Pay(window.solana.publicKey, 0.00000000001).then(res => {
+      Pay(fee.wallet, fee.mainnet_mint_fee / 0.000000001).then(res => {
         setIsLoading(false);
         if (res) {
           MakeRequest();

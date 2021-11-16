@@ -31,15 +31,18 @@ const EContainer = styled.div`
 const FeeContainer = styled.p`
   width: 50%;
   margin: 0 auto;
+  min-width: 650px;
+  max-width: 650px;
+  white-space: pre-line;
 `;
 
 function Editor() {
-  const [fee, setFee] = useState(0);
+  const [fee, setFee] = useState(null);
 
   useEffect(() => {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/mainnet_mint_fee`)
-      .then(res => setFee(res.mainnet_mint_fee));
+      .then(res => setFee(res));
   }, []);
 
   return (
@@ -51,7 +54,8 @@ function Editor() {
       <Container>
         <Navbar />
         <FeeContainer>
-          {`Please note, the Solana minting fee for this article might SOL ${fee}.
+          {`Please note, the Solana minting fee for this article might SOL ${fee?.mainnet_mint_fee ||
+            0}.
           The eno.xyz interface fee is SOL 0.`}
         </FeeContainer>
         <EditorContainer fee={fee} />
