@@ -17,13 +17,19 @@ const TotalContainer = styled.tr`
   font-weight: 700;
   color: rgba(0, 0, 0, 1);
 `;
+const FeeDescription = styled.td`
+  font-size: 12px;
+  color: #000000;
+  opacity: 0.2;
+  padding-left: 0px !important;
+`;
 
 function PricingTable(props) {
   return (
     <Table borderless>
       <tbody>
         <FeeContainer>
-          <Name>Owner's Fee</Name>
+          <Name>Owner`s Fee</Name>
           <Amount>{props.OwnerFee} SOL</Amount>
         </FeeContainer>
         <FeeContainer>
@@ -34,6 +40,11 @@ function PricingTable(props) {
           <Name>Total Unlock Fee</Name>
           <Amount>{props.TotalFee} SOL</Amount>
         </TotalContainer>
+        <FeeContainer>
+          <FeeDescription>
+            The unlock fee does not include Solana Network fee
+          </FeeDescription>
+        </FeeContainer>
       </tbody>
     </Table>
   );

@@ -2,7 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { Row, Container, Col, Button } from "react-bootstrap";
 import Logo from "../../../public/Assets/Logo.svg";
-import DiscordLogo from "../../../public/Assets/discordlogo.png";
+// import DiscordLogo from "../../../public/Assets/discordLogo.png";
+import TwitterLogo from "../../../public/Assets/twitterLogo.png";
+import DiscordLogo from "../../../public/Assets/discord.png";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -13,6 +15,10 @@ const SCol = styled(Col)`
   justify-content: left !important;
   align-items: center !important;
   margin: 0px 24px 0px 24px !important;
+`;
+const SocialContainer = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 const SH1 = styled.h1`
   font-size: 1.8em !important;
@@ -35,6 +41,7 @@ const SButton = styled(Button)`
 const SLink = styled.a`
   display: flex;
   justify-content: center;
+  margin-right: 16px;
 `;
 
 function Homepage() {
@@ -70,7 +77,7 @@ function Homepage() {
                 <p>
                   Eno.xyz is a censorship resistant interface for creating and
                   interacting with protected content powered by the distributed
-                  ledger and cryptographic technologies. Eno.xyz doesn't collect
+                  ledger and cryptographic technologies. Eno.xyz doesn`t collect
                   any data from users allowing them to stay fully anonymous if
                   they so desire. Currently only textual content is supported.
                 </p>
@@ -86,9 +93,14 @@ function Homepage() {
             </SDiv>
           </SCol>
         </Row>
-        <SLink href="https://discord.com/invite/gQK6gxDQPS" target="_blank">
-          <Image alt="eno.xyz Logo" src={DiscordLogo} width={26} height={30} />
-        </SLink>
+        <SocialContainer>
+          <SLink href="https://discord.com/invite/gQK6gxDQPS" target="_blank">
+            <Image alt="eno.xyz Logo" src={DiscordLogo} width={25} height={21} />
+          </SLink>
+          <SLink href="https://twitter.com/enoprotocol" target="_blank">
+            <Image alt="eno.xyz Logo" src={TwitterLogo} width={25} height={21} />
+          </SLink>
+        </SocialContainer>
       </Container>
     </>
   );

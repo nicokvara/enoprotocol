@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useCallback, useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import { Col } from "react-bootstrap";
+import { atom, useRecoilState } from "recoil";
 
 // Static Data 𐂂
 import StaticData from "../../../public/Assets/StaticData.json";
@@ -9,6 +11,7 @@ import StaticData from "../../../public/Assets/StaticData.json";
 import Description from "./Description";
 import PricingTable from "./PricingTable";
 import UnlockButton from "./UnlockButton";
+import OpenArticleButton from "./OpenArticleButton";
 import Alert from "../Alert";
 
 // Styles  𐂂
@@ -25,7 +28,31 @@ const RSContainer = styled.div`
   max-width: 490px;
 `;
 
+export const IsAuthorRequest = atom({
+  key: "IsAuthorRequest", // unique ID (with respect to other atoms/selectors)
+  default: false // default value (aka initial value)
+});
+
 export default function InformationContainer(props) {
+  const [IsAuthor, setIsAuthor] = useRecoilState(IsAuthorRequest);
+
+  const checkAuthority = () => {
+    // console.log(window?.solana?.publicKey?.toString())
+    axios
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/validate_author/`, {
+        article: props.PID,
+        author: window?.solana?.publicKey?.toString()
+      })
+      .then(res => {
+        setIsAuthor(res.data.success);
+      })
+      .catch(err => console.log(err));
+  };
+
+  useEffect(() => {
+    setTimeout(() => checkAuthority(props.PID, window?.solana?.publicKey?.toString()), 100);
+  }, []);
+
   return (
     <SCol md={"12"} xs={"12"} sm={"12"} lg={"6"}>
       <RSContainer>
@@ -40,6 +67,7 @@ export default function InformationContainer(props) {
           TotalFee={props.TotalFee}
         />
         <UnlockButton />
+        {IsAuthor && <OpenArticleButton />}
         <Alert />
       </RSContainer>
     </SCol>

@@ -9,6 +9,8 @@ import {
 } from "../../Functions/Previewer/ButtonStates";
 import { GetPID } from "../../Functions/GetPID";
 import Router from "next/router";
+import { UserPKState, showState } from '../Modal/Modal'
+import { atom, useRecoilState } from "recoil";
 
 // Styles  𐂂
 const SButton = styled(Button)`
@@ -29,6 +31,9 @@ const SButton = styled(Button)`
 function UnlockButton() {
   const [ButtonState, setButtonState] = useState(Loading);
   const [ButtonDisabled, setButtonDisabled] = useState(false);
+  const [show, setShow] = useRecoilState(showState);
+  const [UserPK, setUserPK] = useRecoilState(UserPKState);
+  const isPhantomInstalled = window.solana && window.solana.isPhantom;
 
   // Disables button for those without Phantom Wallet 𐂂
 
@@ -36,28 +41,37 @@ function UnlockButton() {
     if (window.solana === undefined) {
       setButtonDisabled(true);
       setButtonState(WalletNotDetected);
+    } else if (isPhantomInstalled !== true) {
+      setButtonState(WalletNotConnected)
+    } else if (UserPK === null) {
+      setButtonState(WalletNotConnected)
     } else {
       setButtonState(WalletConnected);
     }
-  }, []);
+  }, [isPhantomInstalled, UserPK]);
 
   // Fires when button is clicked 𐂂
   const ClickHandler = async () => {
-    // Sets button to loading 𐂂
-    await new Promise(resolve => {
-      setButtonState(Loading);
-      setTimeout(() => {
-        resolve(setButtonState(WalletNotConnected)); // Sets back to previous state if nothing happened 𐂂
-      }, 5000);
-    });
-    // Connects to Phantom and opens the viewer 𐂂
-    try {
-      window.solana.connect();
-      window.solana.on("connect", () => {
-        Router.push("/viewer/" + GetPID());
+    if (isPhantomInstalled !== true || UserPK === null) {
+      setShow(true);
+    } else {
+      // Sets button to loading 𐂂
+      await new Promise(resolve => {
+        setButtonState(Loading);
+        setTimeout(() => {
+          resolve(setButtonState(WalletNotConnected)); // Sets back to previous state if nothing happened 𐂂
+        }, 5000);
       });
-    } catch (error) {
-      console.log(error);
+      // Connects to Phantom and opens the viewer 𐂂
+      try {
+        window.solana.connect();
+        window.solana.on("connect", () => {
+          setUserPK(window.solana.publicKey.toString());
+          Router.push("/viewer/" + GetPID());
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 

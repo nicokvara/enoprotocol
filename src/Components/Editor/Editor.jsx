@@ -4,15 +4,28 @@ import styled from "styled-components";
 import { Col } from "react-bootstrap";
 import axios from "axios";
 import { atom, useRecoilState } from "recoil";
+import dynamic from "next/dynamic";
+import Spinner from "../../../public/Assets/Animations/Spinner.jsx";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import Error from "./Error";
 import TextareaAutosize from "react-textarea-autosize";
 import Header from "@editorjs/header";
 import SimpleImage from "@editorjs/simple-image";
+import Pay from "../../Functions/Pay";
 
 // Styles  𐂂
 const SRow = styled(Col)``;
+
+const PayInfo = styled.p`
+  font-family: 'IBM Plex Mono', monospace;
+  margin: 20px auto 0px auto;
+  margin-bottom: 0;
+  min-width: 650px;
+  max-width: 650px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(118, 118, 118, 0.08);
+`;
 
 // Title Input 𐂂
 const TInput = styled(TextareaAutosize)`
@@ -20,6 +33,7 @@ const TInput = styled(TextareaAutosize)`
 
   display: block;
   margin: 120px auto 0px auto;
+  margin-top: 50px;
   min-width: 650px;
   max-width: 650px;
 
@@ -158,6 +172,10 @@ function CEditor() {
   const [Title, setTitle] = useState(null);
   const [Description, setDescription] = useState(null);
   const [Price, setPrice] = useState(null);
+  const [checkPayLink, setCheckPayLink] = useState(null);
+  const [payStatus, setPayStatus] = useState(false);
+  const [payData, setPayData] = useState(null);
+  const [articleId, setArticleId] = useState()
 
   // Editor State 𐂂
   const [EState, setEState] = useState(null);
@@ -166,7 +184,7 @@ function CEditor() {
   const [Fire, setFire] = useRecoilState(FirePostRequest);
   const [SaveContent, setSaveContent] = useRecoilState(SaveContentState);
   const [isTyping, setIsTyping] = useRecoilState(isTypingState);
-
+  let toastId;
   // Refs 𐂂
   const formRef = useRef();
 
@@ -209,36 +227,79 @@ function CEditor() {
       })
       .then(function(response) {
         if (response.status === 200) {
-          toast.success(
-            "Content was published. The token will show up in your wallet briefly.",
+          toastId = toast.loading(
+            <span>Content is being published.</span>,
             {
-              duration: 1500,
               position: "top-right",
               style: {
                 margin: "-7px 0px 0px 0px"
               }
             }
           );
-          new Promise(resolve => {
-            setTimeout(() => {
-              resolve(
-                (window.location.href =
-                  window.location.origin +
-                  window.location.pathname.replace(
-                    "new",
-                    "previewer/" + response.data.article_id
-                  ))
-              );
-            }, 1300);
-          });
+          setCheckPayLink(`https://${response.data.cost_deposit_status}`)
+          setPayData({
+            wallet: response.data.cost_deposit_address,
+            sum: response.data.cost_data.total_sum
+          })
+          setArticleId(response.data.article_id)
         } else {
           toast.error("Couldn't post please try again.", {
             position: "bottom-right",
             duration: 3000
           });
         }
-      });
+      })
+      .catch(err => console.log(err))
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (payStatus) {
+        toast.dismiss(toastId);
+        toast.success(
+          "Content was published. You are now being sent to the preview page.",
+          {
+            duration: 1500,
+            position: "top-right",
+            style: {
+              margin: "-7px 0px 0px 0px"
+            }
+          }
+        );
+
+        new Promise(resolve => {
+          setTimeout(() => {
+            resolve(
+              (window.location.href =
+                window.location.origin +
+                window.location.pathname.replace(
+                  "new",
+                  "previewer/" + articleId
+                ))
+            );
+          }, 1300);
+        });
+
+        clearInterval(interval)
+      } else {
+        axios.get(checkPayLink)
+          .then(res => {
+            setPayStatus(res.data.status);
+          })
+          .catch(err => console.log(err))
+      }
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [checkPayLink, payStatus]);
+
+  useEffect(() => {
+    if (payData && Author !== null) {
+      Pay(
+        payData.wallet,
+        payData.sum
+      );
+    }
+  }, [payData])
 
   // Save editor state and meta data 𐂂
   useEffect(() => {
@@ -275,6 +336,11 @@ function CEditor() {
 
   return (
     <SRow>
+      <PayInfo>
+        Please note, the token creation fee for this article is 0.0119862 SOL. 
+        The fees include creation of token metadata and master edition mint. 
+        The eno.xyz interface fee is SOL 0.
+      </PayInfo>
       <form ref={formRef} onSubmit={handleSubmit(SaveMeta)}>
         <TInput
           placeholder="Give this article a short title"
@@ -282,22 +348,22 @@ function CEditor() {
           name="title"
           {...register("title", {
             required: true,
-            maxLength: 120
+            maxLength: 100
           })}
         />
         {errors.title && (
-          <Error msg="Description is required. Not longer than 120 Latin characters. No emojis." />
+          <Error msg="Description is required. Not longer than 100 Latin characters. No emojis." />
         )}
         <DInput
           placeholder="Brifly describe your article. Description and the title are availible to readers before unlocking the article."
           autocomplete="off"
           {...register("description", {
             required: true,
-            maxLength: 250
+            maxLength: 200
           })}
         />
         {errors.description && (
-          <Error msg="Description is required. Not longer than 250 Latin characters. No emojis." />
+          <Error msg="Description is required. Not longer than 200 Latin characters. No emojis." />
         )}
         <SDiv>
           <label>Consumption Price SOL </label>

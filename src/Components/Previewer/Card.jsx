@@ -59,7 +59,7 @@ const SDiv = styled.div`
 `;
 const SH1 = styled.h1`
   font-size: 18px;
-  margin: 16px 0px 16px 0px;
+  margin: 28px 0px 28px 0px;
   font-weight: 700;
   overflow-wrap: break-word;
 `;

@@ -5,35 +5,27 @@ import { atom, useRecoilState } from "recoil";
 import Blur from "./Blur";
 
 // Recoil Atoms 𐂂
-const UserPKState = atom({
+export const UserPKState = atom({
   key: "UserPK", // unique ID (with respect to other atoms/selectors)
   default: null // default value (aka initial value)
 });
 
+export const showState = atom({
+  key: "Show", // unique ID (with respect to other atoms/selectors)
+  default: false // default value (aka initial value)
+});
+
 function WalletModal() {
-  const [show, setShow] = useState(false);
+  // const [show, setShow] = useState(false);
+  const [show, setShow] = useRecoilState(showState);
+
 
   const [UserPK, setUserPK] = useRecoilState(UserPKState);
 
-  const isPhantomInstalled = window.solana && window.solana.isPhantom;
+  // const isPhantomInstalled = window.solana && window.solana.isPhantom;
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-  // useEffect(() => {
-  //   try {
-  //     window.solana.connect({ onlyIfTrusted: true });
-  //     window.solana.on("connect", () => {
-  //       setUserPK(window.solana.publicKey.toString());
-  //     });
-
-  //     window.solana.on("connect", () => {
-  //       handleClose();
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, []);
 
   useEffect(() => {
     if (window.solana) {
@@ -51,12 +43,7 @@ function WalletModal() {
 
   useEffect(() => {
     try {
-      if (isPhantomInstalled !== true) {
-        handleShow();
-      }
-      if (UserPK === null) {
-        handleShow();
-      } else {
+      if (UserPK !== null) {
         handleClose();
       }
     } catch (error) {

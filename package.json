@@ -14,6 +14,7 @@
     "@solana/web3.js": "^1.24.1",
     "axios": "^0.21.1",
     "bootstrap": "^5.1.0",
+    "bs58": "^4.0.1",
     "framer-motion": "^4.1.17",
     "lottie-web": "^5.7.13",
     "next": "11.1.0",
