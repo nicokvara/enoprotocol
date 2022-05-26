@@ -25,22 +25,18 @@ function PayWall({Payer, SignedAddress, payData, depositStatusLink}) {
 
   const router = useRouter();
   const { PID } = router.query;
+
   // Pay function 𐂂
-  // Платим когда есть пейдата и если не автор
   useEffect(() => {
-    console.log(IsAuthor)
     if (Payer !== null && payData && !IsAuthor && authorChecked) {
-      console.log(payData.cost_deposit_address)
-      console.log(payData.cost_data.total_sum / 0.000000001 + 5000 )
       Pay(
         payData.cost_deposit_address,
-        1005000
+        payData.cost_data.total_sum
       )
     } else if (IsAuthor) {
-      console.log('this')
       setPaid(true);
     }
-  }, [Payer, payData, IsAuthor]);
+  }, [Payer, payData, IsAuthor, authorChecked]);
 
   // Проверяем статус депозита. Если тру значит оплачено
   useEffect(() => {
@@ -92,22 +88,22 @@ function PayWall({Payer, SignedAddress, payData, depositStatusLink}) {
     }
   }, [Payer, signedAddress, PID, Paid])
 
-    const checkAuthority = () => {
-      axios
-        .post(`${process.env.NEXT_PUBLIC_API_URL}/validate_author/`, {
-          article: PID,
-          author: window?.solana?.publicKey?.toString()
-        })
-        .then(res => {
-          setIsAuthor(res.data.success);
-          setAuthorChecked(true)
-        })
-        .catch(err => console.log(err));
-    };
+  const checkAuthority = () => {
+    axios
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/validate_author/`, {
+        article: PID,
+        author: window?.solana?.publicKey?.toString()
+      })
+      .then(res => {
+        setIsAuthor(res.data.success);
+        setAuthorChecked(true)
+      })
+      .catch(err => console.log(err));
+  };
 
-    useEffect(() => {
-      if (!IsAuthor) setTimeout(() => checkAuthority(PID, window?.solana?.publicKey?.toString()), 100);
-    }, []);
+  useEffect(() => {
+    if (!IsAuthor) setTimeout(() => checkAuthority(PID, window?.solana?.publicKey?.toString()), 100);
+  }, []);
 
   if (error) return <div>failed to load</div>; // Page loading state 𐂂
   if (!data) return <Loader Title="Loading Viewer" Description="Please wait" />; // Page error state 𐂂
@@ -126,20 +122,3 @@ function PayWall({Payer, SignedAddress, payData, depositStatusLink}) {
 }
 
 export default PayWall;
-
-
-  // const checkAuthority = () => {
-  //   axios
-  //     .post(`${process.env.NEXT_PUBLIC_API_URL}/validate_author/`, {
-  //       article: PID,
-  //       author: window?.solana?.publicKey?.toString()
-  //     })
-  //     .then(res => {
-  //       setIsAuthor(res.data.success);
-  //     })
-  //     .catch(err => console.log(err));
-  // };
-
-  // useEffect(() => {
-  //   if (!IsAuthor) setTimeout(() => checkAuthority(PID, window?.solana?.publicKey?.toString()), 100);
-  // }, []);
