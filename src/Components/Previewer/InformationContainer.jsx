@@ -66,7 +66,7 @@ export default function InformationContainer(props) {
           InterfaceFee={props.InterfaceFee}
           TotalFee={props.TotalFee}
         />
-        <UnlockButton />
+        {!IsAuthor && <UnlockButton />}
         {IsAuthor && <OpenArticleButton />}
         <Alert />
       </RSContainer>
