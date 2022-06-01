@@ -10,7 +10,7 @@ import {
 async function Pay(receiver, amount) {
   try {
     // Connect to Solana
-    const network = "https://api.devnet.solana.com";
+    const network = "https://api.mainnet-beta.solana.com";
     const connection = new Connection(network);
 
     // A new transaction

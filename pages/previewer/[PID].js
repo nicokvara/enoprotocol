@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Container } from "react-bootstrap";
+import axios from 'axios';
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
@@ -22,6 +23,7 @@ const Header = dynamic(() => import("../../src/Components/Previewer/Header"), {
 
 function Previewer() {
   const [InterfaceFee, setInterfaceFee] = useState(0);
+  const [metadata, setMetadata] = useState();
 
   const router = useRouter();
   const { PID } = router.query;
@@ -30,6 +32,16 @@ function Previewer() {
   const { data, error } = useSWR(
     `${process.env.NEXT_PUBLIC_API_URL}/articles/` + PID
   );
+
+  useEffect(() => {
+    if (PID) {
+      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/link_previews/${PID}`)
+        .then(res => {
+          console.log(res.data)
+        })
+        .catch(err => console.log(err))
+    }
+  }, [PID]);
 
   return (
     <>
@@ -41,6 +53,7 @@ function Previewer() {
           <Meta
             title={data.metadata.article_title}
             description={data.metadata.article_description}
+            PID={PID}
             url={`${process.env.NEXT_PUBLIC_BASE_URL}/previewer/` + PID}
           />
           <Container>

@@ -51,6 +51,7 @@ function Viewer() {
           <Meta
             // title={data.metadata.article_title}
             // description={data.metadata.article_description}
+            PID={PID}
             url={`${process.env.NEXT_PUBLIC_BASE_URL}/viewer/` + PID}
           />
           <Container>

@@ -371,17 +371,17 @@ function CEditor() {
             placeholder="0.0014"
             autocomplete="off"
             {...register("price", {
-              required: true,
+              required: false,
               maxLength: 15,
-              min: 0.0
+              // min: 0.0001
             })}
             type="number"
             onWheel={e => e.target.blur()}
-            min="0"
+            // min="0.0001"
             step="any"
           />
           {errors.price && (
-            <Error msg="Please add a price. Price should be a number, if you are feeling generous it can be 0." />
+            <Error msg="Minum price 0.0001. Price should be a number, if you are feeling generous it can be 0." />
           )}
         </SDiv>
       </form>
