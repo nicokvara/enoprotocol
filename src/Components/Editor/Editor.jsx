@@ -155,6 +155,14 @@ const SaveContentState = atom({
   key: "SaveContentState", // unique ID (with respect to other atoms/selectors)
   default: false // default value (aka initial value)
 });
+const AuthorState = atom({
+  key: "AuthorState", // unique ID (with respect to other atoms/selectors)
+  default: null // default value (aka initial value)
+});
+const DefAuthorState = atom({
+  key: "DefineAuthorState", // unique ID (with respect to other atoms/selectors)
+  default: null // default value (aka initial value)
+});
 
 function CEditor() {
   // Useform boilerplate 𐂂
@@ -168,14 +176,13 @@ function CEditor() {
   const Key = "XQaLAlXqrl5Xzf95iFy+1JC1sR+QNGqf";
 
   // Meta Data 𐂂
-  const [Author, setAuthor] = useState(null);
   const [Title, setTitle] = useState(null);
   const [Description, setDescription] = useState(null);
   const [Price, setPrice] = useState(null);
   const [checkPayLink, setCheckPayLink] = useState(null);
   const [payStatus, setPayStatus] = useState(false);
   const [payData, setPayData] = useState(null);
-  const [articleId, setArticleId] = useState()
+  const [articleId, setArticleId] = useState();
 
   // Editor State 𐂂
   const [EState, setEState] = useState(null);
@@ -184,6 +191,8 @@ function CEditor() {
   const [Fire, setFire] = useRecoilState(FirePostRequest);
   const [SaveContent, setSaveContent] = useRecoilState(SaveContentState);
   const [isTyping, setIsTyping] = useRecoilState(isTypingState);
+  const [DefineAuthorState, setDefineAuthor] = useRecoilState(DefAuthorState);
+  const [Author, setAuthor] = useRecoilState(AuthorState);
   let toastId;
   // Refs 𐂂
   const formRef = useRef();
@@ -312,14 +321,14 @@ function CEditor() {
 
   // Once evrything is saved trigger a POST request 𐂂
   useEffect(() => {
-    if (Fire === true && Author === null) {
+    if (DefineAuthorState || Fire === true && Author === null) {
       DefineAuthor();
     }
     if (Fire === true && Author !== null) {
       MakeRequest();
       setFire(false);
     }
-  }, [Fire, Author]);
+  }, [Fire, Author, DefineAuthorState]);
 
   // Detects if user is typing 𐂂
   const HideButton = () => {

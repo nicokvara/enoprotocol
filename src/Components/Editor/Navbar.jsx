@@ -35,11 +35,22 @@ const SaveContentState = atom({
   key: "SaveContentState", // unique ID (with respect to other atoms/selectors)
   default: false // default value (aka initial value)
 });
+const AuthorState = atom({
+  key: "AuthorState", // unique ID (with respect to other atoms/selectors)
+  default: null // default value (aka initial value)
+});
+const DefAuthorState = atom({
+  key: "DefineAuthorState", // unique ID (with respect to other atoms/selectors)
+  default: null // default value (aka initial value)
+});
+
 
 // CNvabat - Custom Navbar 𐂂
 function CNavbar() {
   const [isTyping, setIsTyping] = useRecoilState(isTypingState);
+  const [Author, setAuthor] = useRecoilState(AuthorState);
   const [Fire, setFire] = useRecoilState(FirePostRequest);
+  const [DefineAuthorState, setDefineAuthor] = useRecoilState(DefAuthorState);
   const [SaveContent, setSaveContent] = useRecoilState(SaveContentState);
 
   return (
@@ -51,13 +62,23 @@ function CNavbar() {
               <Navbar.Brand href={process.env.NEXT_PUBLIC_BASE_URL}>
                 <Image alt="eno.xyz Logo" src={Logo} width={80} height={31} />
               </Navbar.Brand>
-              <SButton
-                onClick={() => setFire(true)}
-                onMouseEnter={() => setSaveContent(true)}
-                variant="outline-dark"
-              >
-                Publish
-              </SButton>
+              {Author ? (
+                <SButton
+                  onClick={() => setFire(true)}
+                  onMouseEnter={() => setSaveContent(true)}
+                  variant="outline-dark"
+                >
+                  Publish
+                </SButton>
+              ) : (
+                <SButton
+                  onClick={() => setDefineAuthor(true)}
+                  onMouseEnter={() => setSaveContent(true)}
+                  variant="outline-dark"
+                >
+                  Connect wallet
+                </SButton>
+              )}
             </Container>
           </Navbar>
         </motion.div>
