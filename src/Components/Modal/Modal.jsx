@@ -28,7 +28,7 @@ function WalletModal() {
   const handleShow = () => setShow(true);
 
   useEffect(() => {
-    if (window.solana) {
+    if (window.solana && !UserPK) {
       try {
         window.solana.connect({ onlyIfTrusted: true });
         window.solana.on("connect", () => {
