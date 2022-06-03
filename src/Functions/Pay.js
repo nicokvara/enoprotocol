@@ -10,7 +10,7 @@ import {
 async function Pay(receiver, amount) {
   try {
     // Connect to Solana
-    const network = "https://api.mainnet-beta.solana.com";
+    const network = "https://long-late-frog.solana-mainnet.quiknode.pro/4d224d67b1ba0414ff8bde0840ebc25ae9fe6d13/";
     const connection = new Connection(network);
 
     // A new transaction
