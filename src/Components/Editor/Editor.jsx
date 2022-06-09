@@ -321,7 +321,7 @@ function CEditor() {
 
   // Once evrything is saved trigger a POST request 𐂂
   useEffect(() => {
-    if (DefineAuthorState || Fire === true && Author === null) {
+    if (DefineAuthorState || (Fire === true && Author === null)) {
       DefineAuthor();
     }
     if (Fire === true && Author !== null) {
