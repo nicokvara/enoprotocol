@@ -208,6 +208,7 @@ function CEditor() {
 
   // Connect Phantom and get the author's public key 𐂂
   const DefineAuthor = () => {
+    setDefineAuthor(false);
     window.solana.connect();
     window.solana.on("connect", () => {
       setAuthor(window.solana.publicKey.toString());

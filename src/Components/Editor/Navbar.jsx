@@ -73,7 +73,6 @@ function CNavbar() {
               ) : (
                 <SButton
                   onClick={() => setDefineAuthor(true)}
-                  onMouseEnter={() => setSaveContent(true)}
                   variant="outline-dark"
                 >
                   Connect wallet
