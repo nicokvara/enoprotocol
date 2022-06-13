@@ -207,12 +207,10 @@ function CEditor() {
   };
 
   // Connect Phantom and get the author's public key 𐂂
-  const DefineAuthor = () => {
+  const DefineAuthor = async () => {
     setDefineAuthor(false);
-    window.solana.connect();
-    window.solana.on("connect", () => {
-      setAuthor(window.solana.publicKey.toString());
-    });
+    const resp = await window.solana.connect();
+    setAuthor(resp.publicKey.toString());
   };
 
   const SaveMeta = data => {
@@ -310,11 +308,15 @@ function CEditor() {
       );
     }
   }, [payData])
+  const hiddenButtonRef = useRef(null)
 
   // Save editor state and meta data 𐂂
   useEffect(() => {
     if (SaveContent === true) {
-      formRef.current.requestSubmit();
+      // if (formRef.current.requestSubmit) {
+      // formRef.current.requestSubmit();
+      // }
+      hiddenButtonRef.current.click()        
       SaveEditor();
       setSaveContent(false);
     }
@@ -394,6 +396,7 @@ function CEditor() {
             <Error msg="Minum price 0.0001. Price should be a number, if you are feeling generous it can be 0." />
           )}
         </SDiv>
+        <input type="submit" style={{ display: 'none' }} ref={hiddenButtonRef} />
       </form>
     </SRow>
   );

@@ -20,13 +20,11 @@ function Viewer() {
   const [PayData, setPayData] = useState(null)
 
   // Define who's paying 𐂂
-  useEffect(() => {
+  useEffect(async () => {
     if (PID) {
       try {
-        window.solana.connect();
-        window.solana.on("connect", async () => {
-          setPayer(window.solana.publicKey.toString());
-        });
+        const resp = await window.solana.connect();
+        setPayer(resp.publicKey.toString())
       } catch (error) {
         console.log(error);
       } 

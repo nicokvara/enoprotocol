@@ -64,11 +64,9 @@ function UnlockButton() {
       });
       // Connects to Phantom and opens the viewer 𐂂
       try {
-        window.solana.connect();
-        window.solana.on("connect", () => {
-          setUserPK(window.solana.publicKey.toString());
-          Router.push("/viewer/" + GetPID());
-        });
+        const resp = await window.solana.connect();
+        setUserPK(resp.publicKey.toString())
+        Router.push("/viewer/" + GetPID());
       } catch (error) {
         console.log(error);
       }

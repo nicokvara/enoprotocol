@@ -61,14 +61,12 @@ function PayWall({Payer, SignedAddress, payData, depositStatusLink}) {
   }, [depositStatusLink])
 
   // Запрашиваем подпись если заплачено
-  useEffect(() => {
+  useEffect(async () => {
     if (PID && Paid === true) {
       try {
-        window.solana.connect();
-        window.solana.on("connect", async () => {
-          const signAddress = await SignMsg(window.solana.publicKey.toString(), window.solana.signMessage, PID);
-          setSignedAddress(signAddress);
-        });
+        const resp = await window.solana.connect();
+        const signAddress = await SignMsg(resp.publicKey.toString(), window.solana.signMessage, PID);
+        setSignedAddress(signAddress);
       } catch (error) {
         console.log(error);
       } 

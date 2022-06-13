@@ -11,12 +11,10 @@ import toast from "react-hot-toast";
   };
   */
 
-export const Connect = handleClose => {
+export const Connect = async handleClose => {
   try {
-    window.solana.connect();
-    window.solana.on("connect", () => {
-      handleClose();
-    });
+    await window.solana.connect();
+    handleClose();
   } catch (error) {
     console.log(error);
     if (window.solana === undefined) {
