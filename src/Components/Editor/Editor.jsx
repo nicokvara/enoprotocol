@@ -316,7 +316,7 @@ function CEditor() {
       // if (formRef.current.requestSubmit) {
       // formRef.current.requestSubmit();
       // }
-      hiddenButtonRef.current.click()        
+      hiddenButtonRef.current.click();
       SaveEditor();
       setSaveContent(false);
     }
