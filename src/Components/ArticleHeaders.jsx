@@ -12,7 +12,7 @@ export default function ArticleHeaders(props) {
       <meta property="og:description" content={props.description} />
       <meta
         property="og:image"
-        content={process.env.NEXT_PUBLIC_BASE_URL + "/link_previews/" + props.PID}
+        content="https://api.eno.xyz/link_preview_data/606319.png"
       />
 
       <meta property="twitter:card" content="summary_large_image" />
