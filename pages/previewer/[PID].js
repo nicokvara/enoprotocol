@@ -54,7 +54,7 @@ function Previewer() {
             title={'askdapkdaopskdaspokdsasop'}
             // description={data.metadata.article_description}
             PID={PID}
-            url={`https://api.eno.xyz/link_preview_data/606319.png`}
+            url={`${process.env.NEXT_PUBLIC_BASE_URL}/link_preview_data/${PID}.png`}
           />
           <Container>
             <Header />

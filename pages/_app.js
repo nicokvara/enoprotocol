@@ -40,7 +40,7 @@ function MyApp({ Component, pageProps }) {
         />
         <meta
           property="og:image"
-          content={process.env.NEXT_PUBLIC_BASE_URL + "/Assets/Logo.svg"}
+          content="https://www.eno.xyz/previewer/498162"
         />
 
         <meta property="twitter:card" content="summary_large_image" />
