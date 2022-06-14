@@ -51,8 +51,8 @@ function Previewer() {
         <>
           <WalletModal />
           <Meta
-            title={data.metadata.article_title}
-            description={data.metadata.article_description}
+            // title={data.metadata.article_title}
+            // description={data.metadata.article_description}
             PID={PID}
             url={`${process.env.NEXT_PUBLIC_BASE_URL}/link_preview_data/${PID}.png`}
           />
