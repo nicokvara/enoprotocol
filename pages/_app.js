@@ -54,7 +54,7 @@ function MyApp({ Component, pageProps }) {
         />
         <meta
           property="twitter:image"
-          content={process.env.NEXT_PUBLIC_BASE_URL + "/Assets/Logo.svg"}
+          content={"https://api.eno.xyz/link_preview_data/606319.png"}
         />
       </Head>
       <SWRConfig
