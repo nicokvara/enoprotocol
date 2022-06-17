@@ -5,14 +5,14 @@ export default function ArticleHeaders(props) {
   return (
     <Head>
       <title>{props.title}</title>
-      <link rel="canonical" href='https://www.eno.xyz/previewer/498162' />
+      <link rel="canonical" href={props.url} />
       <meta property="og:type" content="article" />
-      <meta property="og:url" content='https://www.eno.xyz/previewer/498162' />
+      <meta property="og:url" content={props.url} />
       <meta property="og:title" content={props.title} />
       <meta property="og:description" content={props.description} />
       <meta
         property="og:image"
-        content="https://api.eno.xyz/link_preview_data/606319.png"
+        content={`https://api.eno.xyz/link_preview_data/${props.PID}.png`}
       />
 
       <meta property="twitter:card" content="summary_large_image" />
@@ -20,7 +20,7 @@ export default function ArticleHeaders(props) {
       <meta property="twitter:title" content={props.title} />
       <meta
         property="twitter:image"
-        content={process.env.NEXT_PUBLIC_BASE_URL + "/Assets/Logo.svg"}
+        content={`https://api.eno.xyz/link_preview_data/${props.PID}.png`}
       />
     </Head>
   );
