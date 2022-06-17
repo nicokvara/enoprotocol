@@ -40,7 +40,7 @@ function MyApp({ Component, pageProps }) {
         />
         <meta
           property="og:image"
-          content="https://www.eno.xyz/previewer/498162"
+          content="https://api.eno.xyz/link_preview_data/606319.png"
         />
 
         <meta property="twitter:card" content="summary_large_image" />
