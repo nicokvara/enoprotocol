@@ -30,9 +30,16 @@ function WalletModal() {
   useEffect(async () => {
     if (window.solana && !UserPK) {
       try {
-        const resp = await window.solana.connect({ onlyIfTrusted: true });
-        setUserPK(resp.publicKey.toString());
-        handleClose();
+        // Fix it in mobile
+        window.solana.connect({ onlyIfTrusted: true });
+        window.solana.on("connect", () => {
+          setUserPK(window.solana.publicKey.toString());
+          handleClose();
+        });
+
+        // const resp = await window.solana.connect({ onlyIfTrusted: true });
+        // setUserPK(resp.publicKey.toString());
+        // handleClose();
       } catch (error) {
         console.log(error);
       }
