@@ -5,9 +5,9 @@ export default function ArticleHeaders(props) {
   return (
     <Head>
       <title>{props.title}</title>
-      <link rel="canonical" href={props.url} />
+      <link rel="canonical" href='https://www.eno.xyz/previewer/498162' />
       <meta property="og:type" content="article" />
-      <meta property="og:url" content={props.url} />
+      <meta property="og:url" content='https://www.eno.xyz/previewer/498162' />
       <meta property="og:title" content={props.title} />
       <meta property="og:description" content={props.description} />
       <meta
