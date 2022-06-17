@@ -38,12 +38,12 @@ function MyApp({ Component, pageProps }) {
           property="og:title"
           content="Eno - Create, own and monetize your content"
         />
-        <meta
+        {/* <meta
           property="og:image"
           content="https://api.eno.xyz/link_preview_data/606319.png"
-        />
+        /> */}
 
-        <meta property="twitter:card" content="summary_large_image" />
+        {/* <meta property="twitter:card" content="summary_large_image" />
         <meta
           property="twitter:url"
           content={process.env.NEXT_PUBLIC_BASE_URL}
@@ -51,11 +51,11 @@ function MyApp({ Component, pageProps }) {
         <meta
           property="twitter:title"
           content="Eno - Create, own and monetize your content"
-        />
-        <meta
+        /> */}
+        {/* <meta
           property="twitter:image"
           content={"https://api.eno.xyz/link_preview_data/606319.png"}
-        />
+        /> */}
       </Head>
       <SWRConfig
         value={{
