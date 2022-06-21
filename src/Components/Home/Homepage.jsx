@@ -8,6 +8,7 @@ import DiscordLogo from "../../../public/Assets/discord.png";
 import thumbnailImage from "../../../public/Assets/thumbnail.png";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Head from "next/head";
 
 // Styles  𐂂
 const SCol = styled(Col)`
