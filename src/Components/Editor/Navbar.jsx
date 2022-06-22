@@ -64,8 +64,11 @@ function CNavbar() {
               </Navbar.Brand>
               {Author ? (
                 <SButton
-                  onClick={() => setFire(true)}
-                  onMouseEnter={() => setSaveContent(true)}
+                  onClick={() => {
+                    setSaveContent(true)
+                    setFire(true)
+                  }}
+                  // onMouseEnter={() => setSaveContent(true)}
                   variant="outline-dark"
                 >
                   Publish

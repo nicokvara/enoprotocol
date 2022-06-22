@@ -84,8 +84,8 @@ const DInput = styled(TextareaAutosize)`
 // Price Input 𐂂
 const PInput = styled.input`
   border-width: 0px;
-
-  margin: 24px auto 0px 6px;
+  width: 57px;
+  margin: 0px auto 0px 20px;
 
   &:focus {
     outline: none;
@@ -108,8 +108,25 @@ const SDiv = styled.div`
   display: block;
   min-width: 650px;
   max-width: 650px;
-  margin: 0px auto 24px auto;
+  margin: 24px auto 24px auto;
 `;
+
+const SLabel = styled.div`
+  border-right: 1px solid rgba(33, 37, 41, 0.16);
+  padding-right: 20px;
+`
+
+const PDiv = styled.div`
+  width: 390px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #f6f6f5;
+  padding-left 12px;
+  padding-right: 12px;
+  padding-bottom: 8px;
+  padding-top: 7px;
+  border-radius: 5px;
+`
 
 // Spawns the Editor 𐂂
 const editor = new EditorJS({
@@ -311,7 +328,7 @@ function CEditor() {
   const hiddenButtonRef = useRef(null)
 
   // Save editor state and meta data 𐂂
-  useEffect(() => {
+  useEffect(() => {      
     if (SaveContent === true) {
       // if (formRef.current.requestSubmit) {
       // formRef.current.requestSubmit();
@@ -378,23 +395,26 @@ function CEditor() {
           <Error msg="Description is required. Not longer than 200 Latin characters. No emojis." />
         )}
         <SDiv>
-          <label>Consumption Price SOL </label>
-          <PInput
-            placeholder="0.0014"
-            autocomplete="off"
-            {...register("price", {
-              required: false,
-              maxLength: 15,
-              // min: 0.0001
-            })}
-            type="number"
-            onWheel={e => e.target.blur()}
-            // min="0.0001"
-            step="any"
-          />
-          {errors.price && (
-            <Error msg="Minum price 0.0001. Price should be a number, if you are feeling generous it can be 0." />
-          )}
+          <PDiv>
+            <SLabel>Set a Consumption Price in SOL</SLabel>
+            <PInput
+              placeholder="0.0014"
+              autocomplete="off"
+              {...register("price", {
+                required: false,
+                maxLength: 15,
+                // min: 0.0001
+              })}
+              type="number"
+              onWheel={e => e.target.blur()}
+              // min="0.0001"
+              step="any"
+            />
+            <span>◎</span>
+            {errors.price && (
+              <Error msg="Minum price 0.0001. Price should be a number, if you are feeling generous it can be 0." />
+            )}
+          </PDiv>
         </SDiv>
         <input type="submit" style={{ display: 'none' }} ref={hiddenButtonRef} />
       </form>

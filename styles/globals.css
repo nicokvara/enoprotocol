@@ -21,6 +21,17 @@ body {
   margin-bottom: 50px;
 }
 
+.ce-toolbox  {
+  margin-top: 35px;
+  transform: none;
+}
+/* 
+.ce-paragraph:hover, .ce-paragraph::before {
+
+}
+.ce-paragraph::before {
+} */
+
 /*
 .ce-block__content {
   margin-right: 40px !important;
