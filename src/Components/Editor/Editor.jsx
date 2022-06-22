@@ -128,10 +128,25 @@ const PDiv = styled.div`
   border-radius: 5px;
 `
 
+export const redactorPlaceholderFix = () => {
+  const nodes = document.querySelectorAll('.ce-paragraph')
+  nodes.forEach((el, i) => {
+    if (nodes.length === 0 || i === nodes.length - 1) {
+      el.dataset.placeholder = 'Write something...'
+    }
+  })
+}
+
+const handleContentChange = async el => {
+  redactorPlaceholderFix()
+}
+
 // Spawns the Editor 𐂂
 const editor = new EditorJS({
   holder: "editorjs",
-  placeholder: "Write something...",
+  // placeholder: "Write something...",
+  onChange: handleContentChange,
+  
 
   tools: {
     image: SimpleImage,
@@ -373,7 +388,7 @@ function CEditor() {
       <form ref={formRef} onSubmit={handleSubmit(SaveMeta)}>
         <TInput
           placeholder="Give this article a short title"
-          autocomplete="off"
+          autoComplete="off"
           name="title"
           {...register("title", {
             required: true,
@@ -385,7 +400,7 @@ function CEditor() {
         )}
         <DInput
           placeholder="Brifly describe your article. Description and the title are availible to readers before unlocking the article."
-          autocomplete="off"
+          autoComplete="off"
           {...register("description", {
             required: true,
             maxLength: 200
@@ -399,7 +414,7 @@ function CEditor() {
             <SLabel>Set a Consumption Price in SOL</SLabel>
             <PInput
               placeholder="0.0014"
-              autocomplete="off"
+              autoComplete="off"
               {...register("price", {
                 required: false,
                 maxLength: 15,
