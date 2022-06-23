@@ -168,6 +168,12 @@ const editor = new EditorJS({
 editor.isReady
   .then(() => {
     console.log("Editor.js is ready to work!");
+    const content = JSON.parse(localStorage.getItem('content'));
+
+    if (content) {
+      editor.render(content)
+    }
+
     /** Do anything you need after editor initialization */
   })
   .catch(reason => {
@@ -201,6 +207,7 @@ function CEditor() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors }
   } = useForm();
 
@@ -235,6 +242,10 @@ function CEditor() {
       setEState(
         btoa(unescape(encodeURIComponent(JSON.stringify(outputData.blocks))))
       );
+      localStorage.setItem(
+        'content',
+        JSON.stringify(outputData)
+      );
     });
   };
 
@@ -246,12 +257,26 @@ function CEditor() {
   };
 
   const SaveMeta = data => {
+    localStorage.setItem('meta', JSON.stringify({
+      title: data.title,
+      description: data.description,
+      price: data.price
+    }));
+
     setTitle(data.title);
     setDescription(data.description);
     setPrice(data.price);
   };
 
   const MakeRequest = () => {
+    editor.save()
+    localStorage.setItem('postData', JSON.stringify({
+      content: EState,
+      title: Title,
+      description: Description,
+      price: Price
+    }));
+
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/add_article/`, {
         api_key: Key,
@@ -314,7 +339,7 @@ function CEditor() {
                 window.location.origin +
                 window.location.pathname.replace(
                   "new",
-                  "previewer/" + articleId
+                  "minting-in-progress/" + articleId
                 ))
             );
           }, 1300);
@@ -377,6 +402,16 @@ function CEditor() {
       }, 250);
     });
   }, [isTyping]);
+
+  useEffect(() => {
+    const meta = JSON.parse(localStorage.getItem('meta'));
+
+    if (meta) {
+      setValue('title', meta.title)
+      setValue('description', meta.description)
+      setValue('price', meta.price)
+    }
+  }, [])
 
   return (
     <SRow>
