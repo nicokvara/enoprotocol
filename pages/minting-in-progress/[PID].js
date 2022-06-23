@@ -21,7 +21,7 @@ const Header = dynamic(() => import("../../src/Components/Previewer/Header"), {
   ssr: false
 });
 
-function Previewer() {
+function MintinInProgress() {
   const [InterfaceFee, setInterfaceFee] = useState(0);
   const [metadata, setMetadata] = useState();
 
@@ -35,7 +35,7 @@ function Previewer() {
 
   useEffect(() => {
     if (PID) {
-      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/mint_status/${PID}`)
+      axios.get(`${process.env.NEXT_PUBLIC_API_URL}/mint_status/${PID}/`)
         .then(res => {
           console.log(res.data)
         })
@@ -46,8 +46,8 @@ function Previewer() {
   return (
     <>
       <Meta
-        title={data.metadata.article_title}
-        description={data.metadata.article_description}
+        // title={data.metadata.article_title}
+        // description={data.metadata.article_description}
         PID={PID}
         url={`${process.env.NEXT_PUBLIC_BASE_URL}/minting-in-progress/${PID}.png`}
       />
@@ -61,4 +61,4 @@ function Previewer() {
   );
 }
 
-export default Previewer;
+export default MintinInProgress;
