@@ -295,7 +295,7 @@ function CEditor() {
           toastId = toast.loading(
             <span>Content is being published.</span>,
             {
-              position: "top-right",
+              position: "bottom-right",
               style: {
                 margin: "-7px 0px 0px 0px"
               }
@@ -325,7 +325,7 @@ function CEditor() {
           "Content was published. You are now being sent to the preview page.",
           {
             duration: 1500,
-            position: "top-right",
+            position: "bottom-right",
             style: {
               margin: "-7px 0px 0px 0px"
             }
