@@ -163,7 +163,8 @@ function MintinInProgress() {
       setTimeout(router.push("/new/"), 4000)
     } else if (mintStatus === 2) {
       setTimeout(router.push("/previewer/" + PID), 4000)
-
+      localStorage.removeItem('meta');
+      localStorage.removeItem('content');
     }
   }, [mintStatus])
 
