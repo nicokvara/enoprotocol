@@ -19,6 +19,12 @@ import SOLIcon from "../../../public/Assets/SOLIcon.svg";
 // Styles  𐂂
 const SRow = styled(Col)``;
 
+// const EditorPlaceholder = styled.span`
+//   position: absolute;
+//   left: 25%;
+//   cursor: text;
+// `;
+
 const InfoText = styled.p`
   font-family: 'IBM Plex Mono', monospace;
   margin: 20px auto 0px auto;
@@ -149,24 +155,24 @@ const PDiv = styled.div`
   border-radius: 5px;
 `
 
-export const redactorPlaceholderFix = () => {
-  const nodes = document.querySelectorAll('.ce-paragraph')
-  nodes.forEach((el, i) => {
-    if (nodes.length === 0 || i === nodes.length - 1) {
-      el.dataset.placeholder = 'Write something...'
-    }
-  })
-}
+// export const redactorPlaceholderFix = () => {
+//   const nodes = document.querySelectorAll('.ce-paragraph')
+//   nodes.forEach((el, i) => {
+//     if (nodes.length === 0 || i === nodes.length - 1) {
+//       el.dataset.placeholder = 'Write something...'
+//     }
+//   })
+// }
 
-const handleContentChange = async () => {
-  redactorPlaceholderFix()
-}
+// const handleContentChange = async () => {
+//   redactorPlaceholderFix()
+// }
 
 // Spawns the Editor 𐂂
 const editor = new EditorJS({
   holder: "editorjs",
-  // placeholder: "Write something...",
-  onChange: handleContentChange,
+  placeholder: "Write something...",
+  // onChange: handleContentChange,
   
 
   tools: {
@@ -243,6 +249,7 @@ function CEditor() {
   const [payStatus, setPayStatus] = useState(false);
   const [payData, setPayData] = useState(null);
   const [articleId, setArticleId] = useState();
+  const [isShowPlaceholder, setIsShowPlaceholder] = useState(true);
 
   // Editor State 𐂂
   const [EState, setEState] = useState(null);
@@ -493,6 +500,9 @@ function CEditor() {
         Start typing the article content below. This part will only be accessible to readers 
         who unlock your content by paying the consumption fee
       </InfoText>
+      {/* {isShowPlaceholder &&
+        <EditorPlaceholder onClick={() => setIsShowPlaceholder(false)}>Write something...</EditorPlaceholder>
+      } */}
     </SRow>
   );
 }
