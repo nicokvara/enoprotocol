@@ -197,7 +197,7 @@ editor.isReady
     console.log("Editor.js is ready to work!");
     const content = JSON.parse(localStorage.getItem('content'));
 
-    if (content) {
+    if (content && content.blocks.length > 0) {
       editor.render(content)
     }
 
@@ -249,7 +249,7 @@ function CEditor() {
   const [payStatus, setPayStatus] = useState(false);
   const [payData, setPayData] = useState(null);
   const [articleId, setArticleId] = useState();
-  const [isShowPlaceholder, setIsShowPlaceholder] = useState(true);
+  // const [isShowPlaceholder, setIsShowPlaceholder] = useState(true);
 
   // Editor State 𐂂
   const [EState, setEState] = useState(null);
