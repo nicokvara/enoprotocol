@@ -92,7 +92,7 @@ function Homepage() {
                 }}
                 exit={{ opacity: 0 }}
               >
-                <Image alt="eno.xyz Logo" src={Logo} width={80} height={31} />
+                <Image alt="eno.xyz Logo" src={Logo} width={116} height={31} />
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, y: +30 }}

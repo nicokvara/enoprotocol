@@ -60,15 +60,14 @@ function CNavbar() {
           <Navbar bg="white">
             <Container>
               <Navbar.Brand href={process.env.NEXT_PUBLIC_BASE_URL}>
-                <Image alt="eno.xyz Logo" src={Logo} width={80} height={31} />
+                <Image alt="eno.xyz Logo" src={Logo} width={116} height={31} />
               </Navbar.Brand>
               {Author ? (
                 <SButton
                   onClick={() => {
-                    setSaveContent(true)
                     setFire(true)
                   }}
-                  // onMouseEnter={() => setSaveContent(true)}
+                  onMouseEnter={() => setSaveContent(true)}
                   variant="outline-dark"
                 >
                   Publish
@@ -76,6 +75,7 @@ function CNavbar() {
               ) : (
                 <SButton
                   onClick={() => setDefineAuthor(true)}
+                  onMouseEnter={() => setSaveContent(true)}
                   variant="outline-dark"
                 >
                   Connect wallet

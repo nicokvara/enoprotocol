@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components"
 import { Row, Container } from "react-bootstrap";
-import toast, { Toaster } from "react-hot-toast";
 import axios from 'axios';
 import useSWR from "swr";
 import { Col } from "react-bootstrap";

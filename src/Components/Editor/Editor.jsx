@@ -4,27 +4,46 @@ import styled from "styled-components";
 import { Col } from "react-bootstrap";
 import axios from "axios";
 import { atom, useRecoilState } from "recoil";
-import dynamic from "next/dynamic";
-import Spinner from "../../../public/Assets/Animations/Spinner.jsx";
+// import dynamic from "next/dynamic";
+// import Spinner from "../../../public/Assets/Animations/Spinner.jsx";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import Error from "./Error";
 import TextareaAutosize from "react-textarea-autosize";
 import Header from "@editorjs/header";
 import SimpleImage from "@editorjs/simple-image";
+import Image from "next/image";
 import Pay from "../../Functions/Pay";
+import SOLIcon from "../../../public/Assets/SOLIcon.svg";
 
 // Styles  𐂂
 const SRow = styled(Col)``;
 
-const PayInfo = styled.p`
+const InfoText = styled.p`
   font-family: 'IBM Plex Mono', monospace;
   margin: 20px auto 0px auto;
   margin-bottom: 0;
-  min-width: 650px;
-  max-width: 650px;
+  min-width: 697px;
+  max-width: 697px;
   padding-bottom: 24px;
-  border-bottom: 1px solid rgba(118, 118, 118, 0.08);
+  background: rgba(248, 249, 250, 1);
+  padding: 8px 16px;
+  border-radius: 6px;
+  margin-bottom: 24px;
+`;
+
+const Form = styled.form`
+  border: 1px solid #CED4DA;
+  border-radius: 6px;
+  min-width: 697px;
+  max-width: 697px;
+  margin: 24px auto 32px auto;
+  padding: 19px;
+`;
+
+const BoldText = styled.span`
+  font-family: "Space Mono", monospace;
+  font-weight: bold;
 `;
 
 // Title Input 𐂂
@@ -32,10 +51,10 @@ const TInput = styled(TextareaAutosize)`
   // Title Input 𐂂
 
   display: block;
-  margin: 120px auto 0px auto;
-  margin-top: 50px;
-  min-width: 650px;
-  max-width: 650px;
+  margin: 0px auto 0px auto;
+  width: 100%;
+  box-sizing: border-box;
+
 
   border-width: 0px;
 
@@ -63,14 +82,16 @@ const DInput = styled(TextareaAutosize)`
 
   margin: 24px auto 0px auto;
 
-  min-width: 650px;
-  max-width: 650px;
+  width: 100%;
+  box-sizing: border-box;
 
   overflow-wrap: break-word;
 
   resize: none;
 
   border-width: 0px;
+  border-bottom: 1px solid #E9ECEF;
+  padding-bottom: 28px;
 
   &:focus {
     outline: none;
@@ -85,7 +106,7 @@ const DInput = styled(TextareaAutosize)`
 const PInput = styled.input`
   border-width: 0px;
   width: 57px;
-  margin: 0px auto 0px 20px;
+  margin: 0px auto 0px 15px;
 
   &:focus {
     outline: none;
@@ -106,9 +127,9 @@ const PInput = styled.input`
 // Price Container 𐂂
 const SDiv = styled.div`
   display: block;
-  min-width: 650px;
-  max-width: 650px;
-  margin: 24px auto 24px auto;
+  min-width: 697px;
+  max-width: 697px;
+  margin: 24px auto 3px auto;
 `;
 
 const SLabel = styled.div`
@@ -117,7 +138,7 @@ const SLabel = styled.div`
 `
 
 const PDiv = styled.div`
-  width: 390px;
+  width: 394px;
   display: flex;
   align-items: center;
   border: 1px solid #f6f6f5;
@@ -137,7 +158,7 @@ export const redactorPlaceholderFix = () => {
   })
 }
 
-const handleContentChange = async el => {
+const handleContentChange = async () => {
   redactorPlaceholderFix()
 }
 
@@ -415,12 +436,12 @@ function CEditor() {
 
   return (
     <SRow>
-      <PayInfo>
-        Please note, the token creation fee for this article is 0.0119862 SOL. 
+      <InfoText>
+        <BoldText>Please note</BoldText>, the token creation fee for this article is 0.0119862 SOL. 
         The fees include creation of token metadata and master edition mint. 
         The eno.xyz interface fee is SOL 0.
-      </PayInfo>
-      <form ref={formRef} onSubmit={handleSubmit(SaveMeta)}>
+      </InfoText>
+      <Form ref={formRef} onSubmit={handleSubmit(SaveMeta)}>
         <TInput
           placeholder="Give this article a short title"
           autoComplete="off"
@@ -460,14 +481,18 @@ function CEditor() {
               // min="0.0001"
               step="any"
             />
-            <span>◎</span>
+            <Image alt="SOL" src={SOLIcon} width={12} height={12} />
             {errors.price && (
               <Error msg="Minum price 0.0001. Price should be a number, if you are feeling generous it can be 0." />
             )}
           </PDiv>
         </SDiv>
         <input type="submit" style={{ display: 'none' }} ref={hiddenButtonRef} />
-      </form>
+      </Form>
+      <InfoText>
+        Start typing the article content below. This part will only be accessible to readers 
+        who unlock your content by paying the consumption fee
+      </InfoText>
     </SRow>
   );
 }
