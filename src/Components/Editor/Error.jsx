@@ -11,7 +11,7 @@ const SP = styled.p`
 
   margin: 8px auto 0px auto;
 
-  color: #f0405d;
+  color: #FA4B60;
 `;
 
 export default function Error(props) {

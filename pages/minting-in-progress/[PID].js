@@ -41,11 +41,10 @@ const LoaderBlock = styled.div`
   color: #363636;
   line-height: 1.3;
   will-change: transform;
-  box-shadow: 0 3px 10px rgb(0 0 0 / 10%), 0 3px 3px rgb(0 0 0 / 5%);
-  max-width: 350px;
-  pointer-events: auto;
+  max-width: 900px;
   padding: 8px 10px;
-  border-radius: 8px;
+  color: #6C757D;
+  font-weight: 700;
 `;
 
 const Load = styled.div`

@@ -73,7 +73,7 @@ function Card(props) {
     <SContainer>
       <SCard>
         <SDiv>
-          <Image alt="eno.xyz Logo" src={Logo} width={116} height={31} />
+          <Image alt="eno.xyz Logo" src={Logo} width={142} height={35} />
 
           <SH1>{props.Title}</SH1>
 

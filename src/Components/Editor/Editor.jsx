@@ -321,9 +321,9 @@ function CEditor() {
       .then(function(response) {
         if (response.status === 200) {
           toastId = toast.loading(
-            <span>Content is being published.</span>,
+            <span>Publishing in process.</span>,
             {
-              position: "bottom-right",
+              position: "bottom-left",
               style: {
                 margin: "-7px 0px 0px 0px"
               }
@@ -336,8 +336,8 @@ function CEditor() {
           })
           setArticleId(response.data.article_id)
         } else {
-          toast.error("Couldn't post please try again.", {
-            position: "bottom-right",
+          toast.error("Something went wrong, please try again.", {
+            position: "bottom-left",
             duration: 3000
           });
         }
@@ -350,10 +350,10 @@ function CEditor() {
       if (payStatus) {
         toast.dismiss(toastId);
         toast.success(
-          "Content was published. You are now being sent to the preview page.",
+          "Transaction was successful. You will be redirected to minting",
           {
             duration: 1500,
-            position: "bottom-right",
+            position: "bottom-left",
             style: {
               margin: "-7px 0px 0px 0px"
             }
@@ -459,7 +459,7 @@ function CEditor() {
           })}
         />
         {errors.title && (
-          <Error msg="Description is required. Not longer than 100 Latin characters. No emojis." />
+          <Error msg="• Title is required. Not longer than 100 characters." />
         )}
         <DInput
           placeholder="Brifly describe your article. Description and the title are availible to readers before unlocking the article."
@@ -470,7 +470,7 @@ function CEditor() {
           })}
         />
         {errors.description && (
-          <Error msg="Description is required. Not longer than 200 Latin characters. No emojis." />
+          <Error msg="• Description is required. Not longer than 200 characters." />
         )}
         <SDiv>
           <PDiv>
@@ -490,7 +490,7 @@ function CEditor() {
             />
             <Image alt="SOL" src={SOLIcon} width={12} height={12} />
             {errors.price && (
-              <Error msg="Minum price 0.0001. Price should be a number, if you are feeling generous it can be 0." />
+              <Error msg="Please set a price. If you are feeling generous it can be 0." />
             )}
           </PDiv>
         </SDiv>

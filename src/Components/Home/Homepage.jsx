@@ -9,10 +9,11 @@ import thumbnailImage from "../../../public/Assets/thumbnail.png";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Head from "next/head";
+import Navbar from "../Editor/Navbar";
 
 // Styles  𐂂
 const SCol = styled(Col)`
-  height: 95vh;
+  height: 88vh;
   display: flex !important;
   justify-content: left !important;
   align-items: center !important;
@@ -21,13 +22,17 @@ const SCol = styled(Col)`
 const SocialContainer = styled.div`
   display: flex;
   justify-content: center;
+  color: #6C757D;
+  font-size: 15px;
+  display: flex;
+  justify-content: space-between;
 `;
 const SH1 = styled.h1`
   font-size: 1.8em !important;
   font-weight: 700 !important;
   margin-bottom: -12px;
   max-width: 75vw;
-  margin: 24px 0px 12px 0px;
+  margin: 16px 0px 12px 0px;
   display: block;
 `;
 const SDiv = styled.div`
@@ -43,8 +48,30 @@ const SButton = styled(Button)`
 const SLink = styled.a`
   display: flex;
   justify-content: center;
-  margin-right: 16px;
+  text-decoration: none;
+  color: #6C757D;
+
+  &:hover {
+    color: #6C757D; 
+  }
 `;
+const SSpan = styled.span`
+  color: #ADB5BD;
+  font-weight: 700;
+`;
+const SList = styled.ul`
+  list-style: none;
+  display: flex;
+`;
+const SListItem = styled.li`
+  margin-right: 24px;
+`
+
+const SBoldText = styled.span`
+  font-weight: bolder;
+  color: black;
+`
+
 
 function Homepage() {
   return (
@@ -79,6 +106,7 @@ function Homepage() {
         />
       </Head>
       <Container>
+        <Navbar />
         <Row>
           <SCol>
             <SDiv>
@@ -92,7 +120,7 @@ function Homepage() {
                 }}
                 exit={{ opacity: 0 }}
               >
-                <Image alt="eno.xyz Logo" src={Logo} width={116} height={31} />
+                <SSpan>Live on Mainnet</SSpan>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, y: +30 }}
@@ -125,12 +153,34 @@ function Homepage() {
           </SCol>
         </Row>
         <SocialContainer>
-          <SLink href="https://discord.com/invite/gQK6gxDQPS" target="_blank">
-            <Image alt="eno.xyz Logo" src={DiscordLogo} width={25} height={21} />
-          </SLink>
-          <SLink href="https://twitter.com/enoprotocol" target="_blank">
-            <Image alt="eno.xyz Logo" src={TwitterLogo} width={25} height={21} />
-          </SLink>
+          <SList>
+            <SListItem>
+              <SLink href="https://enoprotocol.gitbook.io/eno-protocol/" target="_blank">
+                Docs
+              </SLink>
+            </SListItem>
+            <SListItem>
+              <SLink href="https://enoprotocol.gitbook.io/terms-of-use/" target="_blank">
+                Disclaimer
+              </SLink>
+            </SListItem>
+            <SListItem>
+              <SLink href="/" target="_blank">
+                Join us
+              </SLink>
+            </SListItem>
+            <SListItem> 
+              <SLink href="https://discord.com/invite/gQK6gxDQPS" target="_blank">
+                <Image alt="eno.xyz Logo" src={DiscordLogo} width={25} height={21} />
+              </SLink>
+            </SListItem>
+            <SListItem>     
+              <SLink href="https://twitter.com/enoprotocol" target="_blank">
+                <Image alt="eno.xyz Logo" src={TwitterLogo} width={25} height={21} />
+              </SLink>
+            </SListItem>
+          </SList>
+          <span>Powered by <SBoldText>Eno Protocol</SBoldText></span>
         </SocialContainer>
       </Container>
     </>

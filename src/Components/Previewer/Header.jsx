@@ -9,7 +9,7 @@ const Header = () => (
       <Navbar bg="white">
         <Container>
           <Navbar.Brand href={process.env.NEXT_PUBLIC_BASE_URL}>
-            <Image alt="eno.xyz Logo" src={Logo} width={116} height={31} />
+            <Image alt="eno.xyz Logo" src={Logo} width={142} height={35} />
           </Navbar.Brand>
         </Container>
       </Navbar>
