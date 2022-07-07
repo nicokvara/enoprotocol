@@ -23,35 +23,36 @@ const variants = {
 };
 
 // Recoil Atoms 𐂂
-const isTypingState = atom({
-  key: "isTypingState", // unique ID (with respect to other atoms/selectors)
-  default: false // default value (aka initial value)
-});
-const FirePostRequest = atom({
-  key: "FirePostRequest", // unique ID (with respect to other atoms/selectors)
-  default: false // default value (aka initial value)
-});
-const SaveContentState = atom({
-  key: "SaveContentState", // unique ID (with respect to other atoms/selectors)
-  default: false // default value (aka initial value)
+const DefAuthorState = atom({
+  key: "DefineAuthorState", // unique ID (with respect to other atoms/selectors)
+  default: null // default value (aka initial value)
 });
 const AuthorState = atom({
   key: "AuthorState", // unique ID (with respect to other atoms/selectors)
-  default: null // default value (aka initial value)
-});
-const DefAuthorState = atom({
-  key: "DefineAuthorState", // unique ID (with respect to other atoms/selectors)
   default: null // default value (aka initial value)
 });
 
 
 // CNvabat - Custom Navbar 𐂂
 function CNavbar() {
-  const [isTyping, setIsTyping] = useRecoilState(isTypingState);
-  const [Author, setAuthor] = useRecoilState(AuthorState);
-  const [Fire, setFire] = useRecoilState(FirePostRequest);
   const [DefineAuthorState, setDefineAuthor] = useRecoilState(DefAuthorState);
-  const [SaveContent, setSaveContent] = useRecoilState(SaveContentState);
+  const [Author, setAuthor] = useRecoilState(AuthorState);
+
+  // Connect Phantom and get the author's public key 𐂂
+  const DefineAuthor = async () => {
+    setDefineAuthor(false);
+    const resp = await window.solana.connect();
+    setAuthor(resp.publicKey.toString());
+    sessionStorage.setItem('authorWallet', resp.publicKey.toString())
+  };
+
+  console.log(Author)
+
+  useEffect(() => {
+    if (DefineAuthorState && Author === null) {
+      DefineAuthor();
+    }
+  }, [Author, DefineAuthorState]);
 
   useEffect(() => {
     const author = sessionStorage.getItem('authorWallet');
@@ -64,7 +65,7 @@ function CNavbar() {
   return (
     <Row>
       <Col>
-        <motion.div animate={isTyping ? "closed" : "open"} variants={variants}>
+        <motion.div animate="open" variants={variants}>
           <Navbar bg="white">
             <Container>
               <Navbar.Brand href={process.env.NEXT_PUBLIC_BASE_URL}>
@@ -72,18 +73,15 @@ function CNavbar() {
               </Navbar.Brand>
               {Author ? (
                 <SButton
-                  onClick={() => {
-                    setFire(true)
-                  }}
-                  onMouseEnter={() => setSaveContent(true)}
                   variant="outline-dark"
                 >
-                  Publish
+                  {Author.slice(0, 2)}
+                  ...
+                  {Author.slice(Author.length - 3, Author.length)}
                 </SButton>
               ) : (
                 <SButton
                   onClick={() => setDefineAuthor(true)}
-                  onMouseEnter={() => setSaveContent(true)}
                   variant="outline-dark"
                 >
                   Connect wallet

@@ -282,6 +282,7 @@ function CEditor() {
     setDefineAuthor(false);
     const resp = await window.solana.connect();
     setAuthor(resp.publicKey.toString());
+    sessionStorage.setItem('authorWallet', resp.publicKey.toString())
   };
 
   const SaveMeta = data => {

@@ -9,7 +9,7 @@ import thumbnailImage from "../../../public/Assets/thumbnail.png";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Head from "next/head";
-import Navbar from "../Editor/Navbar";
+import Navbar from "./Navbar";
 
 // Styles  𐂂
 const SCol = styled(Col)`
