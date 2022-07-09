@@ -13,7 +13,7 @@ import Navbar from "./Navbar";
 
 // Styles  𐂂
 const SCol = styled(Col)`
-  height: 88vh;
+  height: 85vh;
   display: flex !important;
   justify-content: left !important;
   align-items: center !important;
